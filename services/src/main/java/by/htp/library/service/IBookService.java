@@ -3,6 +3,7 @@ package by.htp.library.service;
 import by.htp.library.entity.Book;
 import by.htp.library.service.exception.ServiceException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,4 +17,8 @@ public interface IBookService {
     List<Book> checkSearch(String searching, String sorted) throws ServiceException;
 
     List<Book> findAllBooks() throws ServiceException;
+
+    void openAccess(int bookId, ArrayList<Book> bookList) throws ServiceException;
+
+    void closeAccess(int bookId, ArrayList<Book> bookList) throws ServiceException;
 }

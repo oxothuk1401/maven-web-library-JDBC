@@ -19,6 +19,7 @@ public class CommandHelper {
         commands.put(CommandName.ADD_BOOK, new AddBookCommand());
         commands.put(CommandName.SEARCH_BOOK, new SearchBookCommand());
         commands.put(CommandName.USER_OPERATION, new UserOperationCommand());
+        commands.put(CommandName.BOOK_OPERATION, new BookOperationCommand());
     }
 
     public static ICommand getCommand(String commandName) throws CommandException {

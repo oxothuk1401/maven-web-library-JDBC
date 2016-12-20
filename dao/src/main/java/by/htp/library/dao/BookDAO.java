@@ -20,6 +20,9 @@ public class BookDAO implements IBookDAO {
     private final static String FIND_ALL_BOOKS = "SELECT * FROM books";
     private final static String CHECK_SEARCH = "SELECT * FROM books ORDER BY ";
     private final static String ADD_BOOK = "insert into books(access, author, title, date, location, amount) values(?,?,?,?,?,?)";
+    private final static String OPEN_ACCESS = "update books set access = 'available' where idbooks = ?";
+    private final static String CLOSE_ACCESS = "update books set access = 'notAvailable' where idbooks = ?";
+
     ConnectionPool connectionPool = ConnectionPool.getInstance();
     Connection connection;
     PreparedStatement preparedStatement;
@@ -104,6 +107,34 @@ public class BookDAO implements IBookDAO {
             return bookList;
         } catch (SQLException | ConnectionPoolException e) {
             throw new DAOException("Change driver car fault", e);
+        }
+    }
+
+    @Override
+    public void openAccess(int bookId) throws DAOException {
+        try {
+            connection = connectionPool.takeConnection();
+            preparedStatement = connection.prepareStatement(OPEN_ACCESS);
+            preparedStatement.setInt(1, bookId);
+            preparedStatement.executeUpdate();
+            connection.close();
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DAOException("Open access failure", e);
+        }
+    }
+
+    @Override
+    public void closeAccess(int bookId) throws DAOException {
+
+        try {
+            connection = connectionPool.takeConnection();
+            preparedStatement = connection.prepareStatement(CLOSE_ACCESS);
+            System.out.println(preparedStatement);
+            preparedStatement.setInt(1, bookId);
+            preparedStatement.executeUpdate();
+            connection.close();
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DAOException("Close access failure", e);
         }
     }
 

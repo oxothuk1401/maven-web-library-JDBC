@@ -31,6 +31,7 @@ public class AttributeName {
 	public final static String BOOKS_LIST = "bookList";
 	public final static String PAGE_UNIQUE = "pageUnique";
 	public final static String OPERATION = "operation";
+	public final static String BOOK_ID = "bookId";
 
 
 

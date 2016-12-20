@@ -70,7 +70,7 @@ public class ShowAllBooks extends TagSupport {
                     out.write("</td><td>");
                     out.write(book.getDate());
                     out.write("</td><td>");
-                    if (book.getAccess().equals("NotAvailable")) {
+                    if (book.getAccess().equals("notAvailable")) {
                         out.write("<p style='color: red'>" + close + "</p>");
                         out.write("</td><td>");
                         out.write(
@@ -78,7 +78,7 @@ public class ShowAllBooks extends TagSupport {
                                         "<input type='hidden' name='command' value='book-operation' />" +
                                         "<input type='hidden' name='operation' value='open' />" +
                                         "<input type='hidden' name='pageUnique' value='" + pageUnique + "' />" +
-                                        "<input type='hidden' name='userId' value='" + book.getIdbooks() + "'> " +
+                                        "<input type='hidden' name='bookId' value='" + book.getIdbooks() + "'> " +
                                         "<input class='btn btn-info' type='submit' value='" + openAccess + "' />" +
                                         "</form>");
 
@@ -90,9 +90,9 @@ public class ShowAllBooks extends TagSupport {
                                         "<input type='hidden' name='command' value='book-operation' />" +
                                         "<input type='hidden' name='operation' value='close' />" +
                                         "<input type='hidden' name='pageUnique' value='" + pageUnique + "' />" +
-                                        "<input type='hidden' name='userId' value='" + book.getIdbooks() + "'> " +
+                                        "<input type='hidden' name='bookId' value='" + book.getIdbooks() + "'> " +
                                         "<input class='btn btn-primary' type='submit' value='" + closeAccess + "' />" +
-                                        "</form>");
+                                 "</form>");
                     }
 
                     out.write("</td></tr>");

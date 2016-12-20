@@ -18,10 +18,6 @@ public class UserDAO implements IUserDAO {
     private final static String CHECK_MATCH_LOGIN = "SELECT login FROM users WHERE login = ?";
     private final static String CHECK_REGISTER = "insert into users(login, password, Role, blacklist, name, email) values(?,?,?,?,?,?)";
     private final static String FIND_ID_BY_LOGIN = "SELECT idusers FROM users WHERE login = ?";
-    private final static String DELETE_USER = "DELETE FROM users WHERE login=";
-    private final static String GET_USERS = "SELECT login FROM Users";
-    private final static String GET_BOOKS = "SELECT access, author, title, date, location FROM books";
-    private final static String CHECK_SEARCH = "SELECT * FROM books";
     private final static String UNBAN_USER = "update users set blacklist = 'unblock' where idusers = ?";
     private final static String BAN_USER = "update users set blacklist = 'block' where idusers = ?";
     private final static String DELETE = "DELETE FROM users where idusers = ?";

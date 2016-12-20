@@ -58,4 +58,27 @@ public class BookService implements IBookService {
         }
         return bookList;
     }
+
+    @Override
+    public void openAccess(int bookId, ArrayList<Book> bookList) throws ServiceException {
+        try {
+            BookDAO bookDAO = BookDAO.getInstance();
+            bookDAO.openAccess(bookId);
+            bookList.stream().filter(book -> book.getIdbooks() == bookId).forEach(book -> book.setAccess("available"));
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public void closeAccess(int bookId, ArrayList<Book> bookList) throws ServiceException {
+        try {
+            BookDAO bookDAO = BookDAO.getInstance();
+            System.out.println("serv");
+            bookDAO.closeAccess(bookId);
+            bookList.stream().filter(book -> book.getIdbooks() == bookId).forEach(book -> book.setAccess("notAvailable"));
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+    }
 }
