@@ -1,0 +1,104 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+         pageEncoding="utf-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="style/style.css"/>
+    <link rel="stylesheet" type="text/css" href="style/bootstrap.css"/>
+    <fmt:setLocale value="${sessionScope.locale}"/>
+    <fmt:setBundle var="loc" basename="localization.locale"/>
+    <fmt:message var="loginTitle" bundle="${loc}" key="locale.title.login"/>
+    <fmt:message var="greeting" bundle="${loc}" key="locale.greeting"/>
+    <fmt:message var="invalidData" bundle="${loc}" key="locale.invalid.data"/>
+    <fmt:message var="userField" bundle="${loc}" key="locale.user.field"/>
+    <fmt:message var="passField" bundle="${loc}" key="locale.pass.field"/>
+    <fmt:message var="loginButton" bundle="${loc}" key="locale.login.button"/>
+    <fmt:message var="signUp" bundle="${loc}" key="locale.button.sign.up"/>
+    <fmt:message var="requiredFieldChar" bundle="${loc}" key="locale.message.required.character"/>
+    <fmt:message var="enterName" bundle="${loc}" key="locale.entername"/>
+    <fmt:message var="nameInfo" bundle="${loc}" key="locale.message.name.info"/>
+    <fmt:message var="enterLogin" bundle="${loc}" key="locale.user.field"/>
+    <fmt:message var="loginInfo" bundle="${loc}" key="locale.message.login.info"/>
+    <fmt:message var="enterPassword" bundle="${loc}" key="locale.pass.field"/>
+    <fmt:message var="passInfo" bundle="${loc}" key="locale.message.pass.info"/>
+    <fmt:message var="repeatPassword" bundle="${loc}" key="locale.repeatpassword"/>
+    <fmt:message var="enterEmail" bundle="${loc}" key="locale.enteremail"/>
+    <fmt:message var="emailInfo" bundle="${loc}" key="locale.message.email.info"/>
+    <fmt:message var="send" bundle="${loc}" key="locale.button.send"/>
+    <fmt:message var="requiredFieldMessage" bundle="${loc}" key="locale.message.required.field"/>
+    <%--<fmt:message var="authorizationButton" bundle="${loc}"--%>
+                 <%--key="locale.authorization.button"/>--%>
+    <%--<fmt:message var="choiseOr" bundle="${loc}" key="locale.message.choise.or"/>--%>
+
+
+    <title>${loginTitle }</title>
+</head>
+<body class="body">
+<%@ include file="include/header.jsp" %>
+<div class="content">
+    <div class="authorization">
+        ${greeting } <br/>
+        <c:if test="${requestScope.invalidData}">
+            <span class="error">${invalidData }</span>
+        </c:if>
+        <form action="Controller" method="post">
+            <input type="hidden" name="command" value="authorization"/>
+            <input type="text" name="login" value="" placeholder="${userField }"
+                   required pattern="[a-zA-Z0-9]{4,20}"/>
+            <br/>
+            <input type="password" name="password" value="" placeholder="${passField }" required
+                   pattern="[a-zA-Z0-9]{4,20}"/> <br/>
+            <input class="btn btn-primary" type="submit" value="${loginButton}"/>
+        </form>
+        <input class="btn btn-info" id="show_div" type="button" value="${signUp}"/>
+    </div>
+    <c:choose>
+    <c:when test="${not empty requestScope.invalidRegistrData}">
+    <div id="hidden_div" style="display:block">
+        </c:when>
+        <c:otherwise>
+        <div id="hidden_div" style="display:none">
+            </c:otherwise>
+            </c:choose>
+            <form action="Controller" method="post">
+                <input type="hidden" name="command" value="sign-up-user"/>
+                <input type="hidden" name="pageUnique" value="${sessionScope.pageUnique }"/>
+                <c:if test="${not empty requestScope.invalidRegistrData}">
+                    <span class="error">${requestScope.invalidRegistrData }</span>
+                    <br>
+                </c:if>
+                <input type="text" name="registrName" required pattern="[a-zA-Zа-яёА-ЯЁ\s]{2,20}"
+                       placeholder="${enterName }${requiredFieldChar }"
+                       value=""/> ${nameInfo }
+                <br>
+                <input type="text" name="registrLogin" required pattern="[a-zA-Z0-9]{4,20}"
+                       placeholder="${enterLogin }${requiredFieldChar }"
+                       value=""/> ${loginInfo }
+                <br>
+                <input type="password" name="registrPass" required pattern="[a-zA-Z0-9]{4,20}"
+                       placeholder="${enterPassword }${requiredFieldChar }"
+                       value=""/> ${passInfo }
+                <br>
+                <input type="password" name="registrRepeatPass" required pattern="[a-zA-Z0-9]{4,20}"
+                       placeholder="${repeatPassword }${requiredFieldChar }"
+                       value=""/>
+                <br>
+                <input type="text" name="registrEmail" required pattern=".+@.+"
+                       placeholder="${enterEmail }${requiredFieldChar }"
+                       value=""/> ${emailInfo }
+                <br>
+                ${requiredFieldMessage }
+                <br>
+                <input class="btn btn-primary"
+                       type="submit" value="${send }"/>
+            </form>
+        </div>
+    </div>
+    <%@ include file="include/footer.jsp" %>
+    <script src="js/show_hidden_div.js"></script>
+</div>
+</body>
+</html>

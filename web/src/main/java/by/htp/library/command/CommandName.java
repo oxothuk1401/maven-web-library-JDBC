@@ -1,0 +1,15 @@
+package by.htp.library.command;
+
+public enum CommandName {
+
+	SEARCH_BOOK,
+	ADD_BOOK,
+	AUTHORIZATION,
+	LOCALIZATION,
+	LOGOUT,
+	TO_MAIN_PAGE,
+	SIGN_UP_USER,
+	SHOW_ALL_USERS,
+	USER_OPERATION,
+	SHOW_ALL_BOOKS
+}
