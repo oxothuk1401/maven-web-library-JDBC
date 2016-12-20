@@ -13,19 +13,12 @@ import static org.junit.Assert.assertNotNull;
  */
 public class ServiceTest {
 
-
-
     ConnectionPool connectionPool = null;
     @Before
     public void setUp() throws Exception {
         connectionPool = ConnectionPool.getInstance();
         connectionPool.initPoolData();}
-    @Ignore
-    @Test(expected = ServiceException.class)
-    public void checkLogin() throws Exception {
-        assertNotNull(UserService.getInstance().authorizeUser("",""));
-    }
-    @Ignore
+
     @Test
     public void showUsersNotNull() throws Exception {
         assertNotNull(UserService.getInstance().matchExistLogin(""));
