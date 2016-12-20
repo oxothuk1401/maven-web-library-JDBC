@@ -131,7 +131,7 @@ public class UserDAO implements IUserDAO {
             connection.close();
             return userList;
         } catch (SQLException | ConnectionPoolException e) {
-            throw new DAOException("Change driver car fault", e);
+            throw new DAOException("Error accessing database", e);
         }
     }
 
@@ -144,7 +144,7 @@ public class UserDAO implements IUserDAO {
             preparedStatement.executeUpdate();
             connection.close();
         } catch (SQLException | ConnectionPoolException e) {
-            throw new DAOException("Ban user failure", e);
+            throw new DAOException("Error accessing database", e);
         }
     }
 
@@ -157,7 +157,7 @@ public class UserDAO implements IUserDAO {
             preparedStatement.executeUpdate();
             connection.close();
         } catch (SQLException | ConnectionPoolException e) {
-            throw new DAOException("Unban user failure", e);
+            throw new DAOException("Error accessing database", e);
         }
     }
 
@@ -170,7 +170,7 @@ public class UserDAO implements IUserDAO {
             preparedStatement.executeUpdate();
             connection.close();
         } catch (SQLException | ConnectionPoolException e) {
-            throw new DAOException("Delete user failure", e);
+            throw new DAOException("Error accessing database", e);
         }
     }
 }

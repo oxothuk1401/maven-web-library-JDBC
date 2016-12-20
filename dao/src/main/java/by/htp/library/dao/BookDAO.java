@@ -49,7 +49,6 @@ public class BookDAO implements IBookDAO {
             preparedStatement.executeUpdate();
             connection.close();
             return true;
-
         } catch (SQLException | ConnectionPoolException e) {
             return false;
         }
@@ -79,7 +78,7 @@ public class BookDAO implements IBookDAO {
             connection.close();
             return listBooks;
         } catch (SQLException | ConnectionPoolException e) {
-            throw new DAOException("Error accessing database");
+            throw new DAOException("Search fault");
         }
 
 
@@ -106,7 +105,7 @@ public class BookDAO implements IBookDAO {
             connection.close();
             return bookList;
         } catch (SQLException | ConnectionPoolException e) {
-            throw new DAOException("Change driver car fault", e);
+            throw new DAOException("Find all books fault", e);
         }
     }
 
@@ -119,7 +118,7 @@ public class BookDAO implements IBookDAO {
             preparedStatement.executeUpdate();
             connection.close();
         } catch (SQLException | ConnectionPoolException e) {
-            throw new DAOException("Open access failure", e);
+            throw new DAOException("Open access fault", e);
         }
     }
 
@@ -129,12 +128,11 @@ public class BookDAO implements IBookDAO {
         try {
             connection = connectionPool.takeConnection();
             preparedStatement = connection.prepareStatement(CLOSE_ACCESS);
-            System.out.println(preparedStatement);
             preparedStatement.setInt(1, bookId);
             preparedStatement.executeUpdate();
             connection.close();
         } catch (SQLException | ConnectionPoolException e) {
-            throw new DAOException("Close access failure", e);
+            throw new DAOException("Close access fault", e);
         }
     }
 

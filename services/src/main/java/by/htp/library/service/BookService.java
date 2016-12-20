@@ -74,7 +74,6 @@ public class BookService implements IBookService {
     public void closeAccess(int bookId, ArrayList<Book> bookList) throws ServiceException {
         try {
             BookDAO bookDAO = BookDAO.getInstance();
-            System.out.println("serv");
             bookDAO.closeAccess(bookId);
             bookList.stream().filter(book -> book.getIdbooks() == bookId).forEach(book -> book.setAccess("notAvailable"));
         } catch (DAOException e) {
