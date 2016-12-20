@@ -12,7 +12,6 @@
     <fmt:setBundle var="loc" basename="localization.locale"/>
     <fmt:message var="hello1" bundle="${loc}" key="locale.hello.client1"/>
     <fmt:message var="userTitle" bundle="${loc}" key="locale.title.user"/>
-    <fmt:message var="orderCompleted" bundle="${loc}" key="locale.message.completed.order"/>
     <title>${userTitle }</title>
 </head>
 <body class="body">

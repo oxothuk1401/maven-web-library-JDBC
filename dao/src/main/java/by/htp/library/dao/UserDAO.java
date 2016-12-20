@@ -114,9 +114,9 @@ public class UserDAO implements IUserDAO {
         }
         return userId;
     }
-
+    @Override
     public ArrayList<User> findAllUsers() throws DAOException {
-        ArrayList<User> usersList = new ArrayList<>();
+        ArrayList<User> userList = new ArrayList<>();
         try {
             connection = connectionPool.takeConnection();
             preparedStatement = connection.prepareStatement(FIND_ALL_USERS);
@@ -130,10 +130,10 @@ public class UserDAO implements IUserDAO {
                 user.setBlacklist(resultSet.getString(5));
                 user.setName(resultSet.getString(6));
                 user.seteMail(resultSet.getString(7));
-                usersList.add(user);
+                userList.add(user);
             }
             connection.close();
-            return usersList;
+            return userList;
         } catch (SQLException | ConnectionPoolException e) {
             throw new DAOException("Change driver car fault", e);
         }

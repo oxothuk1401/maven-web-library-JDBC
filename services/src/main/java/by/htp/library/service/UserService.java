@@ -50,14 +50,14 @@ public class UserService implements IUserService {
 	}
 
 	public ArrayList<User> findAllUsers() throws ServiceException {
-		ArrayList<User> usersList;
+		ArrayList<User> userList;
 		try {
 			UserDAO userDAO = UserDAO.getInstance();
-			usersList = userDAO.findAllUsers();
+			userList = userDAO.findAllUsers();
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
-		return usersList;
+		return userList;
 	}
 
 	@Override

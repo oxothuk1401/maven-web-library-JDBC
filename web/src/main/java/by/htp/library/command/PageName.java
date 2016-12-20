@@ -10,8 +10,6 @@ public class PageName {
 	public final static String SHOW_SEARCH_BOOK = "jsp/show_search_book.jsp";
 	public static final String INDEX_PAGE = "index.jsp";
 
-
-
 	private PageName() {
 	}
 }

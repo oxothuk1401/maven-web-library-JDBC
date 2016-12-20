@@ -31,7 +31,7 @@ public class ShowAllBooks extends TagSupport {
             locale = new Locale(userLocale);
         }
         bundle = ResourceBundle.getBundle(LOCALE_PROPERTIES, locale);
-        String noBooks = bundle.getString("locale.messagge.no.users");
+        String noBooks = bundle.getString("locale.messagge.no.books");
         String id = bundle.getString("local.id");
         String author = bundle.getString("local.author");
         String title = bundle.getString("local.title");

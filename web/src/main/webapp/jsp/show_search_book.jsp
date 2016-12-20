@@ -38,7 +38,7 @@
             <form action="Controller" method="post">
                 <input type="hidden" name="command" value="close-access"/>
                 <input class="btn btn-info" id="" type="button" value="${closeAccess}"/>
-                <input type="text" class="span2 search-query" name="close-access"  placeholder="${enterId}" value="">
+                <input type="text" class="span2 search-query" name="close-access" placeholder="${enterId}" value="">
             </form>
         </div>
         <div>
@@ -79,7 +79,7 @@
                 <script src="js/show_hidden_div.js"></script>
             </div>
         </div>
-<br>
+        <br>
     </div>
     <div class="container">
         <article class="row">

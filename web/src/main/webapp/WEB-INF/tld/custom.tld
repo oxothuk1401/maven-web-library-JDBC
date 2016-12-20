@@ -10,7 +10,7 @@
         <body-content>empty</body-content>
         <attribute>
             <name>userList</name>
-            <required>true</required>
+            <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
@@ -20,7 +20,7 @@
         <body-content>empty</body-content>
         <attribute>
             <name>bookList</name>
-            <required>true</required>
+            <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
