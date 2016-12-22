@@ -14,7 +14,7 @@
 		</taglib>
 	</jsp-config>
 	<listener>
-		<listener-class>by.htp.library.listners.Listners</listener-class>
+		<listener-class>by.htp.library.listner.ServletContextListenerImpl</listener-class>
 	</listener>
 	<error-page>
 		<error-code>500</error-code>

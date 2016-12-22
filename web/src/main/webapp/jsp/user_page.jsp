@@ -8,6 +8,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="stylesheet" type="text/css" href="style/style.css"/>
     <link rel="stylesheet" type="text/css" href="style/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="style/bootstrap-theme.css"/>
+
     <fmt:setLocale value="${sessionScope.locale}"/>
     <fmt:setBundle var="loc" basename="localization.locale"/>
     <fmt:message var="hello1" bundle="${loc}" key="locale.hello.client1"/>

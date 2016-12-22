@@ -1,14 +1,14 @@
 package by.htp.library.dao;
 
+
 import by.htp.library.dao.exception.DAOException;
 import by.htp.library.entity.Book;
 
 import java.util.List;
 
-
 public interface IBookDAO {
 
-    boolean addBook(String addAuthor, String addTitle, String addDate, String addAmount) throws DAOException;
+    boolean addBook(String addAuthor, String addTitle, String addDate) throws DAOException;
 
     List<Book> checkSearch(String searching, String sorted) throws DAOException;
 

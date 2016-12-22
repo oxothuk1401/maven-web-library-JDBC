@@ -4,19 +4,17 @@ package by.htp.library.command.impl;
 import by.htp.library.command.AttributeName;
 import by.htp.library.command.ICommand;
 import by.htp.library.command.PageName;
-import by.htp.library.controller.exception.CommandException;
+import by.htp.library.command.exception.CommandException;
 import by.htp.library.entity.User;
 import by.htp.library.entity.UserRole;
-import by.htp.library.service.UserService;
 import by.htp.library.service.exception.ServiceException;
-import by.htp.library.utils.CreateErrorMessage;
+import by.htp.library.service.impl.UserService;
+import by.htp.library.util.CreateErrorMessage;
 import by.htp.library.validation.Validation;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 public class SignUpUserCommand implements ICommand {
 	private final static String LOGIN_EXISTS = "locale.error.login.exists";

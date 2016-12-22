@@ -16,7 +16,6 @@
     <fmt:message var="author" bundle="${loc}" key="local.author"/>
     <fmt:message var="title" bundle="${loc}" key="local.title"/>
     <fmt:message var="date" bundle="${loc}" key="local.date"/>
-    <fmt:message var="amount" bundle="${loc}" key="local.amount"/>
     <fmt:message var="edit" bundle="${loc}" key="local.edit"/>
     <fmt:message var="closeAccess" bundle="${loc}" key="local.closeAccess"/>
     <fmt:message var="apply" bundle="${loc}" key="local.apply"/>
@@ -24,7 +23,6 @@
     <fmt:message var="authorInfo" bundle="${loc}" key="locale.message.author"/>
     <fmt:message var="titleInfo" bundle="${loc}" key="locale.message.title"/>
     <fmt:message var="dateInfo" bundle="${loc}" key="locale.message.date"/>
-    <fmt:message var="amountInfo" bundle="${loc}" key="locale.message.amount"/>
     <fmt:message var="enterId" bundle="${loc}" key="local.enterId"/>
     <title>${bookList }</title>
 </head>
@@ -57,9 +55,6 @@
                         <br>
                         <input type="text" name="dateEdit" placeholder="${date}"
                                value=""/> ${dateInfo}
-                        <br>
-                        <input type="text" name="amountEdit" placeholder="${amount}"
-                               value=""/> ${amountInfo}
                         <br>
                         <input class="btn btn-primary"
                                type="submit" value="${apply }"/>

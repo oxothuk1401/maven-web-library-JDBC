@@ -10,37 +10,38 @@
     <link rel="stylesheet" type="text/css" href="style/bootstrap.css"/>
     <fmt:setLocale value="${sessionScope.locale}"/>
     <fmt:setBundle var="loc" basename="localization.locale"/>
-    <fmt:message var="resultSearch" bundle="${loc}" key="locale.title.user.list"/>
+    <fmt:message var="resultSearch" bundle="${loc}" key="locale.title.book.search"/>
     <fmt:message var="id" bundle="${loc}" key="local.id"/>
     <fmt:message var="access" bundle="${loc}" key="local.access"/>
     <fmt:message var="author" bundle="${loc}" key="local.author"/>
     <fmt:message var="title" bundle="${loc}" key="local.title"/>
     <fmt:message var="date" bundle="${loc}" key="local.date"/>
-    <fmt:message var="amount" bundle="${loc}" key="local.amount"/>
 
     <title>${resultSearch }</title>
 </head>
 
 <body class="content">
 <%@ include file="include/header.jsp" %>
-<div>
-
-    <div class="container">
-        <article class="row">
-            <p style="color: #006dcc" class="span2"><strong>${author }</strong></p>
-            <p style="color: #006dcc" class="span3"><strong>${title }</strong></p>
-            <p style="color: #006dcc" class="span2"><strong>${date }</strong></p>
-            <p style="color: #006dcc" class="span1"><strong>${amount }</strong></p>
-        </article>
+<div class="container panel">
+    <h1 class="panel-heading" align="center">${resultSearch }</h1>
+    <table class="table table-striped ">
+        <thead>
+        <tr>
+            <th style="color: #1b6d85"><strong>${author }</strong></th>
+            <th style="color: #1b6d85"><strong>${title }</strong></th>
+            <th style="color: #1b6d85"><strong>${date }</strong></th>
+        </tr>
+        </thead>
+        <tbody>
         <c:forEach var="book" items="${bookList}">
-            <article class="row ">
-                <p style="color: #1a1a1a" class="span2 "><c:out value="${ book.author }"/></p>
-                <p style="color: #1a1a1a" class="span3 "><c:out value="${ book.title }"/></p>
-                <p style="color: #1a1a1a" class="span2 "><c:out value="${ book.date }"/></p>
-                <p style="color: #1a1a1a" class="span1 "><c:out value="${ book.amount }"/></p>
-            </article>
+            <tr>
+                <td><c:out value="${ book.author }"/></td>
+                <td><c:out value="${ book.title }"/></td>
+                <td><c:out value="${ book.date }"/></td>
+            </tr>
         </c:forEach>
-    </div>
+        </tbody>
+    </table>
 </div>
 <%@ include file="include/footer.jsp" %>
 </body>

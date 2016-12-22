@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import by.htp.library.command.*;
-import by.htp.library.controller.exception.CommandException;
+import by.htp.library.command.exception.CommandException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -43,11 +43,13 @@ public class Controller extends HttpServlet {
             ICommand command = CommandHelper.getCommand(commandName);
             pageName = command.execute(request, response);
         } catch (CommandException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(e);
             pageName = PageName.ERROR_PAGE;
         }
         if (pageName != PageName.AJAX) {
             request.getRequestDispatcher(pageName).forward(request, response);
+        } else {
+            request.getRequestDispatcher(PageName.ERROR_PAGE).forward(request, response);
         }
     }
 }

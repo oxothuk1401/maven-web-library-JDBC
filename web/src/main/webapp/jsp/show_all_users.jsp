@@ -16,9 +16,10 @@
 </head>
 <body class="body2">
 <%@ include file="include/header.jsp" %>
-<div class="content">
-    <table align="center"></table>
+<div class="container panel">
+    <table class="table" align="center">
     <ctg:show-all-users userList="${sessionScope.userList }"/>
+    </table>
 </div>
 <%@ include file="include/footer.jsp" %>
 

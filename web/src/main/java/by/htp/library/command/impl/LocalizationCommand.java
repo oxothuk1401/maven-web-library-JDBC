@@ -3,7 +3,7 @@ package by.htp.library.command.impl;
 import by.htp.library.command.AttributeName;
 import by.htp.library.command.ICommand;
 import by.htp.library.command.PageName;
-import by.htp.library.controller.exception.CommandException;
+import by.htp.library.command.exception.CommandException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

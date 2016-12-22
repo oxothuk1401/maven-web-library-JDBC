@@ -7,19 +7,19 @@
 <fmt:message bundle="${loc}" key="local.query" var="query" />
 
 
-<div class="search">
-    <form action="Controller" method="post" class="navbar-form pull-left">
-        <input type="hidden" name="command" value="search-book"/>
-        <input type="submit" class="btn btn-info" value="${search}"/>
-        <select name="sorted">
-            <option selected value="author">${sorted}
-            <option value="author">${authors}
-            <option value="title">${titles}
-            <option value="date">${dates}
-        </select>
-        <input type="search" class="span2 search-query " name="searching"  placeholder="${query}" value=""><br>
-    </form>
-    <c:out value="${requestScope.errorMessage}" />
- </div>
 
-<hr>
+<div class="navbar-fixed-top col-md-offset-4 col-lg-6">
+    <form action="Controller" method="post" class="navbar-form">
+        <input type="hidden" name="command" value="search-book"/>
+        <div class="form-group">
+            <input class="form-control" name="searching"  placeholder="${query}" value="">
+            <select class="form-control" name="sorted">
+                <option selected value="author">${sorted}
+                <option value="author">${authors}
+                <option value="title">${titles}
+                <option value="date">${dates}
+            </select>
+        </div>
+        <button class="btn btn-default">${search}</button>
+    </form>
+</div>

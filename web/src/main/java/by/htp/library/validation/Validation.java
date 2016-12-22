@@ -9,6 +9,9 @@ public class Validation {
 	private final static String LOGIN_REG_EX = "\\w{4,20}";
 	private final static String PASSWORD_REG_EX = "\\w{4,20}";
 	private final static String EMAIL_REG_EX = ".+@.+";
+	private final static String AUTHOR_ADD_EX = "[\\wа-яА-Я]{2,50}";
+	private final static String TITLE_ADD_EX = "[\\wа-яА-Я]{4,50}";
+	private final static String DATE_ADD_EX = "\\d{4}";
 
 	private Validation() {
 
@@ -42,6 +45,24 @@ public class Validation {
 	public boolean validateEmail(String email) {
 		Pattern pattern = Pattern.compile(EMAIL_REG_EX);
 		Matcher matcher = pattern.matcher(email);
+		return matcher.matches();
+	}
+
+	public boolean validateAuthor(String author) {
+		Pattern pattern = Pattern.compile(AUTHOR_ADD_EX);
+		Matcher matcher = pattern.matcher(author);
+		return matcher.matches();
+	}
+
+	public boolean validateTitle(String title) {
+		Pattern pattern = Pattern.compile(TITLE_ADD_EX);
+		Matcher matcher = pattern.matcher(title);
+		return matcher.matches();
+	}
+
+	public boolean validateDate(String date) {
+		Pattern pattern = Pattern.compile(DATE_ADD_EX);
+		Matcher matcher = pattern.matcher(date);
 		return matcher.matches();
 	}
 

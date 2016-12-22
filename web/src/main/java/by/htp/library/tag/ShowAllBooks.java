@@ -32,10 +32,8 @@ public class ShowAllBooks extends TagSupport {
         }
         bundle = ResourceBundle.getBundle(LOCALE_PROPERTIES, locale);
         String noBooks = bundle.getString("locale.messagge.no.books");
-        String id = bundle.getString("local.id");
         String author = bundle.getString("local.author");
         String title = bundle.getString("local.title");
-        String amount = bundle.getString("local.amount");
         String date = bundle.getString("local.date");
         String access = bundle.getString("local.access");
         String openAccess = bundle.getString("locale.message.openAccess");
@@ -50,23 +48,17 @@ public class ShowAllBooks extends TagSupport {
                 out.write(noBooks);
             } else {
                 out.write("<table align='center' class='table table-bordered table-condensed' style='width: 80%'>"
-                        + "<tr><th>" + id
                         + "</th><th>" + author
                         + "</th><th>" + title
-                        + "</th><th>" + amount
                         + "</th><th>" + date
                         + "</th><th>" + access
                         + "</th><th>" + action
                         + "</th></tr>");
                 for (Book book : bookList) {
                     out.write("<tr><td>");
-                    out.write(Integer.toString(book.getIdbooks()));
-                    out.write("</td><td>");
                     out.write(book.getAuthor());
                     out.write("</td><td>");
                     out.write(book.getTitle());
-                    out.write("</td><td>");
-                    out.write(Integer.toString(book.getAmount()));
                     out.write("</td><td>");
                     out.write(book.getDate());
                     out.write("</td><td>");
@@ -78,7 +70,7 @@ public class ShowAllBooks extends TagSupport {
                                         "<input type='hidden' name='command' value='book-operation' />" +
                                         "<input type='hidden' name='operation' value='open' />" +
                                         "<input type='hidden' name='pageUnique' value='" + pageUnique + "' />" +
-                                        "<input type='hidden' name='bookId' value='" + book.getIdbooks() + "'> " +
+                                        "<input type='hidden' name='bookId' value='" + book.getBookId() + "'> " +
                                         "<input class='btn btn-info' type='submit' value='" + openAccess + "' />" +
                                         "</form>");
 
@@ -90,7 +82,7 @@ public class ShowAllBooks extends TagSupport {
                                         "<input type='hidden' name='command' value='book-operation' />" +
                                         "<input type='hidden' name='operation' value='close' />" +
                                         "<input type='hidden' name='pageUnique' value='" + pageUnique + "' />" +
-                                        "<input type='hidden' name='bookId' value='" + book.getIdbooks() + "'> " +
+                                        "<input type='hidden' name='bookId' value='" + book.getBookId() + "'> " +
                                         "<input class='btn btn-primary' type='submit' value='" + closeAccess + "' />" +
                                  "</form>");
                     }

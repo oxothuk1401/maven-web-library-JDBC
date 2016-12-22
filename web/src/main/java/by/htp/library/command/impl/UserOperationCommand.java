@@ -2,10 +2,10 @@ package by.htp.library.command.impl;
 
 import by.htp.library.command.AttributeName;
 import by.htp.library.command.ICommand;
-import by.htp.library.controller.exception.CommandException;
+import by.htp.library.command.exception.CommandException;
 import by.htp.library.entity.User;
-import by.htp.library.service.UserService;
 import by.htp.library.service.exception.ServiceException;
+import by.htp.library.service.impl.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

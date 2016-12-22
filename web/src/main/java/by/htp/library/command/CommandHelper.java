@@ -1,7 +1,8 @@
 package by.htp.library.command;
 
+import by.htp.library.command.exception.CommandException;
 import by.htp.library.command.impl.*;
-import by.htp.library.controller.exception.CommandException;
+
 import java.util.EnumMap;
 
 public class CommandHelper {

@@ -43,24 +43,21 @@
         <div id="hidden_div" style="display:none">
     </c:otherwise>
 </c:choose>
-<form action="Controller" method="post">
+<form action="Controller" method="post" class="navbar-form pull-left">
     <input type="hidden" name="command" value="add-book"/>
     <input type="hidden" name="pageUnique" value="${sessionScope.pageUnique }"/>
     <c:if test="${not empty requestScope.wrongData}">
         <span class="error">${requestScope.wrongData }</span>
         <br>
     </c:if>
-    <input type="text" name="authorAdd" value=""
+    <input class="form-control" type="text" name="authorAdd" value=""
            placeholder="${authorAdd }${requiredFieldChar }"/>${authorInfo }
     <br>
-    <input type="text" name="titleAdd" value=""
+    <input class="form-control" type="text" name="titleAdd" value=""
            placeholder="${titleAdd }${requiredFieldChar }"/>${titleInfo }
     <br>
-    <input type="text" name="dateAdd" value=""
+    <input class="form-control" type="text" name="dateAdd" value=""
            placeholder="${dateAdd }${requiredFieldChar }"/>${dateInfo }
-    <br>
-    <input type="text" name="amountAdd" value=""
-           placeholder="${amountAdd }${requiredFieldChar }"/>${amountInfo }
     <br>
     ${requiredFieldMessage }
     <br>

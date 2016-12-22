@@ -6,7 +6,6 @@ import by.htp.library.entity.User;
 
 import java.util.List;
 
-
 public interface IUserDAO {
 
 	User authorizeUser(String login, String password) throws DAOException;
