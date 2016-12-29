@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 public class Validation {
 	private final static Validation INSTANCE = new Validation();
-	private final static String NAME_REG_EX = "\\w{2,20}";
+	private final static String NAME_REG_EX = "[a-zA-Zа-яёА-ЯЁ\\s]{2,20}";
 	private final static String LOGIN_REG_EX = "\\w{4,20}";
 	private final static String PASSWORD_REG_EX = "\\w{4,20}";
 	private final static String EMAIL_REG_EX = ".+@.+";

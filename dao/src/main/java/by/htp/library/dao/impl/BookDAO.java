@@ -37,7 +37,7 @@ public class BookDAO implements IBookDAO {
 
     @Override
     public boolean addBook(String addAuthor, String addTitle, String addDate) throws DAOException {
-        Connection connection;
+        Connection connection = null;
         PreparedStatement preparedStatement;
         try {
             connection = connectionPool.takeConnection();
@@ -47,9 +47,14 @@ public class BookDAO implements IBookDAO {
             preparedStatement.setString(3, addTitle);
             preparedStatement.setString(4, addDate);
             preparedStatement.executeUpdate();
-
         } catch (SQLException | ConnectionPoolException e) {
-            throw new DAOException(e);
+            throw new DAOException("Add book fault");
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                throw new DAOException("Error close connection");
+            }
         }
         return true;
     }
@@ -58,7 +63,7 @@ public class BookDAO implements IBookDAO {
     public List<Book> checkSearch(String searching, String sorted) throws DAOException {
         List<Book> listBooks = new ArrayList<>();
         String str;
-        Connection connection;
+        Connection connection = null;
         PreparedStatement preparedStatement;
         ResultSet resultSet;
         try {
@@ -78,6 +83,12 @@ public class BookDAO implements IBookDAO {
             }
         } catch (SQLException | ConnectionPoolException e) {
             throw new DAOException("Search fault");
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                throw new DAOException("Error close connection");
+            }
         }
         return listBooks;
     }
@@ -85,7 +96,7 @@ public class BookDAO implements IBookDAO {
     @Override
     public ArrayList<Book> findAllBooks() throws DAOException {
         ArrayList<Book> bookList = new ArrayList<>();
-        Connection connection;
+        Connection connection = null;
         PreparedStatement preparedStatement;
         ResultSet resultSet;
         try {
@@ -103,12 +114,19 @@ public class BookDAO implements IBookDAO {
             }
         } catch (SQLException | ConnectionPoolException e) {
             throw new DAOException("Find all books fault", e);
-        }return bookList;
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                throw new DAOException("Error close connection");
+            }
+        }
+        return bookList;
     }
 
     @Override
     public void openAccess(int bookId) throws DAOException {
-        Connection connection;
+        Connection connection = null;
         PreparedStatement preparedStatement;
         try {
             connection = connectionPool.takeConnection();
@@ -117,12 +135,18 @@ public class BookDAO implements IBookDAO {
             preparedStatement.executeUpdate();
         } catch (SQLException | ConnectionPoolException e) {
             throw new DAOException("Open access fault", e);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                throw new DAOException("Error close connection");
+            }
         }
     }
 
     @Override
     public void closeAccess(int bookId) throws DAOException {
-        Connection connection;
+        Connection connection = null;
         PreparedStatement preparedStatement;
         try {
             connection = connectionPool.takeConnection();
@@ -131,6 +155,12 @@ public class BookDAO implements IBookDAO {
             preparedStatement.executeUpdate();
         } catch (SQLException | ConnectionPoolException e) {
             throw new DAOException("Close access fault", e);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                throw new DAOException("Error close connection");
+            }
         }
     }
 

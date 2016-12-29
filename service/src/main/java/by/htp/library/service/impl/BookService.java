@@ -25,7 +25,7 @@ public class BookService implements IBookService {
     @Override
     public boolean addBook(String addAuthor, String addTitle, String addDate) throws ServiceException {
         BookDAO bookDAO = BookDAO.getInstance();
-        boolean result = false;
+        boolean result;
         try {
             result = bookDAO.addBook(addAuthor,addTitle,addDate);
         } catch (DAOException e) {

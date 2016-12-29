@@ -33,11 +33,12 @@ public class AddBookCommand implements ICommand {
             BookService.getInstance().addBook(addAuthor, addTitle, addDate);
             request.setAttribute(AttributeName.SUCCESS_OPERATION, true);
         } catch (ServiceException e) {
-           throw new CommandException(e);
+            throw new CommandException(e);
         }
         session.setAttribute(AttributeName.LAST_PAGE, PageName.USER_PAGE);
         return PageName.USER_PAGE;
     }
+
     private boolean validateData(String addAuthor, String addTitle, String addDate) {
         Validation validation = Validation.getInstance();
         return validation.validateAuthor(addAuthor) && validation.validateTitle(addTitle) && validation.validateDate(addDate);

@@ -1,6 +1,5 @@
-;
-document.getElementById("show_div").onclick = function() {
-	var hiddenDiv = document.getElementById("hidden_div");
+document.("#show_div").onclick = function() {
+	var hiddenDiv = document.("#hidden_div");
 	if (hiddenDiv.style.display == "none") {
 		hiddenDiv.style.display = "block"
 	} else {

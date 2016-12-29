@@ -63,5 +63,5 @@
     <br>
     <input class="btn btn-success" type="submit" value="${add }"/>
 </form>
-<script src="js/show_hidden_div.js"></script>
+<script src="/js/show_hidden_div.js"></script>
 </div>

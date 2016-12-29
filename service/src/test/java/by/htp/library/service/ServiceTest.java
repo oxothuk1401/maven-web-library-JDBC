@@ -1,6 +1,7 @@
 package by.htp.library.service;
 
 import by.htp.library.dao.pool.ConnectionPool;
+import by.htp.library.service.impl.UserService;
 import org.junit.Before;
 import org.junit.Test;
 

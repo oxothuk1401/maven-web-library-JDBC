@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="style/style.css"/>
     <link rel="stylesheet" type="text/css" href="style/bootstrap.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <fmt:setLocale value="${sessionScope.locale}"/>
     <fmt:setBundle var="loc" basename="localization.locale"/>
     <fmt:message var="loginTitle" bundle="${loc}" key="locale.title.login"/>
@@ -30,10 +31,7 @@
     <fmt:message var="emailInfo" bundle="${loc}" key="locale.message.email.info"/>
     <fmt:message var="send" bundle="${loc}" key="locale.button.send"/>
     <fmt:message var="requiredFieldMessage" bundle="${loc}" key="locale.message.required.field"/>
-    <%--<fmt:message var="authorizationButton" bundle="${loc}"--%>
-    <%--key="locale.authorization.button"/>--%>
-    <%--<fmt:message var="choiseOr" bundle="${loc}" key="locale.message.choise.or"/>--%>
-
+    <script src="/js/show_panel.js"></script>
 
     <title>${loginTitle }</title>
 </head>
@@ -47,69 +45,66 @@
                 <c:if test="${requestScope.invalidData}">
                     <span class="error text-center">${invalidData }</span>
                 </c:if>
-                <form action="Controller" method="post" >
+                <c:if test="${not empty requestScope.successOperation}">
+                    <span style="color: green;">${successOperation }</span>
+                    <br>
+                </c:if>
+                <form action="Controller" method="post">
                     <input type="hidden" name="command" value="authorization"/>
-                        <input class="form-control" type="text" name="login" value="" placeholder="${userField }"
-                               required pattern="[a-zA-Z0-9]{4,20}"/>
+                    <input class="form-control" type="text" name="login" value="" placeholder="${userField }"
+                           required pattern="[a-zA-Z0-9]{4,20}"/>
 
-                        <input class="form-control" type="password" name="password" value="" placeholder="${passField }"
-                               required pattern="[a-zA-Z0-9]{4,20}"/> <br/>
+                    <input class="form-control" type="password" name="password" value="" placeholder="${passField }"
+                           required pattern="[a-zA-Z0-9]{4,20}"/> <br/>
                     <button class="btn btn-primary btn-block" type="submit" value="">
                         ${loginButton}
                     </button>
                 </form>
-                <button class="btn btn-info btn-block" id="show_div" type="button" value="">
-                    ${signUp}
-                </button>
+                <input class="btn btn-info btn-block" id="hide" style="display:none" onclick="return false" type="button" value="${signUp}"/>
+                <input class="btn btn-info  btn-block" id="show" onclick="return false" type="button" value="${signUp}"/>
+
             </div>
         </div>
     </div>
     <c:choose>
     <c:when test="${not empty requestScope.invalidRegistrData}">
-    <div id="hidden_div" style="display:block">
+    <div id="panel" style="display:block">
         </c:when>
         <c:otherwise>
-        <div id="hidden_div" style="display:none">
+        <div id="panel" style="display: none;">
             </c:otherwise>
             </c:choose>
             <form action="Controller" method="post" class="navbar-form">
                 <input type="hidden" name="command" value="sign-up-user"/>
-                <input type="hidden" name="pageUnique" value="${sessionScope.pageUnique }"/>
                 <c:if test="${not empty requestScope.invalidRegistrData}">
                     <span class="error">${requestScope.invalidRegistrData }</span>
                     <br>
                 </c:if>
-                <input class="form-control" type="text" name="registrName" required pattern="[a-zA-Zа-яёА-ЯЁ\s]{2,20}"
-                       placeholder="${enterName }${requiredFieldChar }"
-                       value=""/> ${nameInfo }
+                <input class="form-control" type="text" name="registrName" required
+                       pattern="[a-zA-Zа-яёА-ЯЁ\s]{2,20}"
+                       placeholder="${enterName }${requiredFieldChar }" value=""/> ${nameInfo }
                 <br>
                 <input class="form-control" type="text" name="registrLogin" required pattern="[a-zA-Z0-9]{4,20}"
-                       placeholder="${enterLogin }${requiredFieldChar }"
-                       value=""/> ${loginInfo }
+                       placeholder="${enterLogin }${requiredFieldChar }" value=""/> ${loginInfo }
                 <br>
                 <input class="form-control" type="password" name="registrPass" required pattern="[a-zA-Z0-9]{4,20}"
-                       placeholder="${enterPassword }${requiredFieldChar }"
-                       value=""/> ${passInfo }
+                       placeholder="${enterPassword }${requiredFieldChar }" value=""/> ${passInfo }
                 <br>
                 <input class="form-control" type="password" name="registrRepeatPass" required
                        pattern="[a-zA-Z0-9]{4,20}"
-                       placeholder="${repeatPassword }${requiredFieldChar }"
-                       value=""/>
+                       placeholder="${repeatPassword }${requiredFieldChar }" value=""/>
                 <br>
                 <input class="form-control" type="text" name="registrEmail" required pattern=".+@.+"
-                       placeholder="${enterEmail }${requiredFieldChar }"
-                       value=""/> ${emailInfo }
+                       placeholder="${enterEmail }${requiredFieldChar }" value=""/> ${emailInfo }
                 <br>
                 ${requiredFieldMessage }
                 <br>
-                <button class="btn btn-info" id="show_div" type="button" value="">
+                <button class="btn btn-info" type="submit" value="">
                     ${send }
                 </button>
             </form>
         </div>
+        <%@ include file="include/footer.jsp" %>
     </div>
-    <%@ include file="include/footer.jsp" %>
-    <script src="js/show_hidden_div.js"></script>
-</div>
 </body>
 </html>

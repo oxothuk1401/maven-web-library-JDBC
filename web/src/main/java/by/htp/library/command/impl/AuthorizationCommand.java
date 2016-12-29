@@ -22,10 +22,11 @@ public class AuthorizationCommand implements ICommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         String login = request.getParameter(AttributeName.LOGIN);
         String password = request.getParameter(AttributeName.PASSWORD);
+        String page;;
         HttpSession session = request.getSession();
         if (!validateData(login, password)) {
             request.setAttribute(AttributeName.INVALID_DATA, true);
-            return PageName.AUTHORIZATION;
+            page = PageName.AUTHORIZATION;
         }
         try {
             User user = UserService.getInstance().authorizeUser(login, password);
@@ -35,16 +36,15 @@ public class AuthorizationCommand implements ICommand {
                 session.setAttribute(AttributeName.USER_ROLE, user.getRole().toString().toLowerCase());
                 session.setAttribute(AttributeName.BLACKLIST, user.getBlacklist());
                 session.setAttribute(AttributeName.LAST_PAGE, PageName.USER_PAGE);
-                int pageUnique = new Random().nextInt();
-                session.setAttribute(AttributeName.PAGE_UNIQUE, pageUnique);
-                return PageName.USER_PAGE;
+                page =  PageName.USER_PAGE;
             } else {
                 request.setAttribute(AttributeName.INVALID_DATA, true);
-                return PageName.AUTHORIZATION;
+                page = PageName.AUTHORIZATION;
             }
         } catch (ServiceException e) {
             throw new CommandException(e);
         }
+        return page;
     }
 
     private boolean validateData(String login, String password) {

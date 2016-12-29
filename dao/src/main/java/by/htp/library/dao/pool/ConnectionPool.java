@@ -56,7 +56,11 @@ public final class ConnectionPool {
 			for (int i = 0; i < poolsize; i++) {
 				Connection connection = DriverManager.getConnection(url, user, password);
 				PooledConnection pooledConnection = new PooledConnection(connection);
-				connectionQueue.add(pooledConnection);
+				try {
+					connectionQueue.put(pooledConnection);
+				} catch (InterruptedException e) {
+					logger.error(e);
+				}
 			}
 
 		} catch (SQLException e) {

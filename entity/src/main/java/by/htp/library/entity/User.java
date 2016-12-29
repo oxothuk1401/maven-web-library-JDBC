@@ -11,7 +11,6 @@ public class User implements Serializable {
     private String eMail;
     private String login;
     private String password;
-//    convention
     private String blacklist;
 
 
