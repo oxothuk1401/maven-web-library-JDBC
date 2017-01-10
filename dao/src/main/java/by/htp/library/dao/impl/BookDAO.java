@@ -71,14 +71,16 @@ public class BookDAO implements IBookDAO {
             preparedStatement = connection.prepareStatement(CHECK_SEARCH + sorted);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                str = resultSet.getString(3) + " " +
-                        resultSet.getString(4) + " " +
-                        resultSet.getString(5);
-                if (str.toLowerCase().contains(searching.toLowerCase())) {
-                    listBooks.add(new Book(resultSet.getLong(1),
-                            resultSet.getString(3),
-                            resultSet.getString(4),
-                            resultSet.getString(5)));
+                if(resultSet.getString(2).equals("available")) {
+                    str = resultSet.getString(3) + " " +
+                            resultSet.getString(4) + " " +
+                            resultSet.getString(5);
+                    if (str.toLowerCase().contains(searching.toLowerCase())) {
+                        listBooks.add(new Book(resultSet.getLong(1),
+                                resultSet.getString(3),
+                                resultSet.getString(4),
+                                resultSet.getString(5)));
+                    }
                 }
             }
         } catch (SQLException | ConnectionPoolException e) {

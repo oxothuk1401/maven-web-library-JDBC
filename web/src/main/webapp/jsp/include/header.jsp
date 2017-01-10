@@ -15,7 +15,7 @@
     <div class="logo navbar-fixed-top">
         <form action="Controller" method="post">
             <input type="hidden" name="command" value="to-main-page"/>
-            <input type="image" src="img/logo1.png">
+            <input type="image" src="img/logo1.png" alt="library">
         </form>
     </div>
     <div class="navbar-fixed-top">
@@ -32,14 +32,14 @@
             <form action="Controller" method="post">
                 <input type="hidden" name="command" value="localization"/>
                 <input type="hidden" name="locale" value="ru"/>
-                <input type="image" src="img/rus1.jpg">
+                <input type="image" src="img/rus1.jpg" alt="rus">
             </form>
         </div>
         <div class="personal">
             <form action="Controller" method="post">
                 <input type="hidden" name="command" value="localization"/>
                 <input type="hidden" name="locale" value="en"/>
-                <input type="image" src="img/en.jpg">
+                <input type="image" src="img/en.jpg" alt="en">
             </form>
         </div>
     </div>

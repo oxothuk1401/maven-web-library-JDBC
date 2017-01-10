@@ -9,11 +9,12 @@
     <link rel="stylesheet" type="text/css" href="style/style.css"/>
     <link rel="stylesheet" type="text/css" href="style/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="style/bootstrap-theme.css"/>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <fmt:setLocale value="${sessionScope.locale}"/>
     <fmt:setBundle var="loc" basename="localization.locale"/>
     <fmt:message var="hello1" bundle="${loc}" key="locale.hello.client1"/>
     <fmt:message var="userTitle" bundle="${loc}" key="locale.title.user"/>
+    <script src="/js/show_panel.js"></script>
     <title>${userTitle }</title>
 </head>
 <body class="body">

@@ -37,20 +37,21 @@
         <input class="btn btn-info" id="show" onclick="return false" type="button" value="${show}"/>
 
         <div id="panel" style="display: none;">
-            <form action="Controller" method="post">
+            <form action="Controller" method="post" class="navbar-form">
                 <input type="hidden" name="command" value="sign-up-user"/>
                 <input type="hidden" name="pageUnique" value="${sessionScope.pageUnique }"/>
                 <c:if test="${not empty requestScope.invalidRegistrData}">
                     <span class="error">${requestScope.invalidRegistrData }</span>
                     <br>
                 </c:if>
-                <input type="text" name="authorEdit" placeholder="${author}"
+                <input class="form-control" type="text" name="authorEdit"
+                       placeholder="${author} "
                        value=""/> ${authorInfo}
                 <br>
-                <input type="text" name="titleEdit" placeholder="${title}"
+                <input class="form-control" type="text" name="titleEdit" placeholder="${title}"
                        value=""/> ${titleInfo}
                 <br>
-                <input type="text" name="dateEdit" placeholder="${date}"
+                <input class="form-control" type="number" name="dateEdit" placeholder="${date}"
                        value=""/> ${dateInfo}
                 <br>
                 <input class="btn btn-primary"

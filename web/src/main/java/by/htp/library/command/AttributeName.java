@@ -17,9 +17,6 @@ public class AttributeName {
 	public final static String USER_NAME = "userName";
 	public final static String LOGIN = "login";
 	public final static String USER_ROLE = "userRole";
-	public final static String USER_RATING = "userRating";
-	public final static String CLIENT_BALANCE = "clientBalance";
-	public final static String RIDE_QUANTITY = "rideQuantity";
 	public final static String REGISTR_NAME = "registrName";
 	public final static String REGISTR_LOGIN = "registrLogin";
 	public final static String REGISTR_PASS = "registrPass";
@@ -33,17 +30,13 @@ public class AttributeName {
 	public final static String OPERATION = "operation";
 	public final static String BOOK_ID = "bookId";
 
-
-
 	public final static String SEARCHING = "searching";
 	public final static String SORTED = "sorted";
-
 
 //	Add book
 	public final static String ADD_AUTHOR = "authorAdd";
 	public final static String ADD_TITLE = "titleAdd";
 	public final static String ADD_DATE = "dateAdd";
-	public final static String ADD_AMOUNT = "amountAdd";
 
 
 

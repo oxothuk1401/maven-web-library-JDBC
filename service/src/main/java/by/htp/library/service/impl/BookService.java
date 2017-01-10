@@ -38,7 +38,6 @@ public class BookService implements IBookService {
     public List<Book> checkSearch(String searching, String sorted) throws ServiceException {
         BookDAO bookDAO = BookDAO.getInstance();
         List<Book> bookList = null;
-
         try {
             bookList = bookDAO.checkSearch(searching,sorted);
         } catch (DAOException e) {
