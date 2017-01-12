@@ -2,6 +2,9 @@ package by.htp.library.tag;
 
 import by.htp.library.command.AttributeName;
 import by.htp.library.entity.Book;
+import by.htp.library.util.CreateErrorMessage;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
@@ -9,11 +12,13 @@ import javax.servlet.jsp.tagext.TagSupport;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 public class ShowAllBooks extends TagSupport {
     private static final long serialVersionUID = -450464079239593285L;
     private final static String LOCALE_PROPERTIES = "localization.locale";
+    private static Logger logger = LogManager.getLogger(ShowAllBooks.class);
     private ArrayList<Book> bookList;
     private ResourceBundle bundle;
 
@@ -25,12 +30,13 @@ public class ShowAllBooks extends TagSupport {
     public int doStartTag() throws JspException {
         String userLocale = (String) pageContext.getSession().getAttribute(AttributeName.LOCALE);
         Locale locale;
-        if (userLocale == null) {
-            locale = Locale.getDefault();
-        } else {
-            locale = new Locale(userLocale);
+        try {
+            locale = (userLocale != null) ? new Locale(userLocale) : Locale.getDefault();
+            bundle = ResourceBundle.getBundle(LOCALE_PROPERTIES, locale);
+        } catch (MissingResourceException e) {
+            logger.error(e);
+            throw new RuntimeException("No access to the localization file");
         }
-        bundle = ResourceBundle.getBundle(LOCALE_PROPERTIES, locale);
         String noBooks = bundle.getString("locale.messagge.no.books");
         String author = bundle.getString("local.author");
         String title = bundle.getString("local.title");
@@ -84,7 +90,7 @@ public class ShowAllBooks extends TagSupport {
                                         "<input type='hidden' name='pageUnique' value='" + pageUnique + "' />" +
                                         "<input type='hidden' name='bookId' value='" + book.getBookId() + "'> " +
                                         "<input class='btn btn-primary' type='submit' value='" + closeAccess + "' />" +
-                                 "</form>");
+                                        "</form>");
                     }
 
                     out.write("</td></tr>");

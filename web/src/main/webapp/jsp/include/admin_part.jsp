@@ -71,33 +71,4 @@
         </form>
     </div>
 </div>
-<%--<c:choose>--%>
-    <%--<c:when test="${not empty requestScope.wrongData}">--%>
-        <%--<div id="hidden_div" style="display:block">--%>
-    <%--</c:when>--%>
-    <%--<c:otherwise>--%>
-        <%--<div id="hidden_div" style="display:none">--%>
-    <%--</c:otherwise>--%>
-<%--</c:choose>--%>
-<%--<form action="Controller" method="post" class="navbar-form pull-left">--%>
-    <%--<input type="hidden" name="command" value="add-book"/>--%>
-    <%--<input type="hidden" name="pageUnique" value="${sessionScope.pageUnique }"/>--%>
-    <%--<c:if test="${not empty requestScope.wrongData}">--%>
-        <%--<span class="error">${requestScope.wrongData }</span>--%>
-        <%--<br>--%>
-    <%--</c:if>--%>
-    <%--<input class="form-control" type="text" name="authorAdd" value=""--%>
-           <%--placeholder="${authorAdd }${requiredFieldChar }"/>${authorInfo }--%>
-    <%--<br>--%>
-    <%--<input class="form-control" type="text" name="titleAdd" value=""--%>
-           <%--placeholder="${titleAdd }${requiredFieldChar }"/>${titleInfo }--%>
-    <%--<br>--%>
-    <%--<input class="form-control" type="text" name="dateAdd" value=""--%>
-           <%--placeholder="${dateAdd }${requiredFieldChar }"/>${dateInfo }--%>
-    <%--<br>--%>
-    <%--${requiredFieldMessage }--%>
-    <%--<br>--%>
-    <%--<input class="btn btn-success" type="submit" value="${add }"/>--%>
-<%--</form>--%>
-<%--<script src="/js/show_hidden_div.js"></script>--%>
 </div>

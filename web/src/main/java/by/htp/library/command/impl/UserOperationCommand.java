@@ -22,9 +22,10 @@ public class UserOperationCommand implements ICommand {
 		ArrayList<User> userList = (ArrayList<User>) session.getAttribute(AttributeName.USERS_LIST);
 		try {
 			switch (operation) {
-				case "unban": UserService.getInstance().unBanUser(userId, userList);  break;
-				case "ban": UserService.getInstance().banUser(userId, userList);  break;
-				case "delete": UserService.getInstance().delete(userId, userList); break;
+				case AttributeName.UNBAN: UserService.getInstance().unBanUser(userId, userList);  break;
+				case AttributeName.BAN: UserService.getInstance().banUser(userId, userList);  break;
+				case AttributeName.DELETE: UserService.getInstance().delete(userId, userList); break;
+
 			}
 		} catch (ServiceException e) {
 			throw new CommandException(e);

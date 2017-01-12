@@ -18,10 +18,11 @@ public class LocalizationCommand implements ICommand {
 		String locale = request.getParameter(AttributeName.LOCALE);
 		session.setAttribute(AttributeName.LOCALE, locale);
 		String lastPage = (String)session.getAttribute(AttributeName.LAST_PAGE);
-		if (lastPage == null) {
-			return PageName.AUTHORIZATION;
-		} else {
+		if (lastPage != null) {
 			return lastPage;
+		} else {
+			return PageName.AUTHORIZATION;
+
 		}
 	}
 }

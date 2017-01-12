@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 public class BookOperationCommand implements ICommand {
 
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         HttpSession session = request.getSession();
@@ -22,8 +23,8 @@ public class BookOperationCommand implements ICommand {
         ArrayList<Book> bookList = (ArrayList<Book>) session.getAttribute(AttributeName.BOOKS_LIST);
         try {
             switch (operation) {
-                case "open": BookService.getInstance().openAccess(bookId, bookList);  break;
-                case "close": BookService.getInstance().closeAccess(bookId, bookList);  break;
+                case AttributeName.OPEN: BookService.getInstance().openAccess(bookId, bookList);  break;
+                case AttributeName.CLOSE: BookService.getInstance().closeAccess(bookId, bookList);  break;
             }
         } catch (ServiceException e) {
             throw new CommandException(e);

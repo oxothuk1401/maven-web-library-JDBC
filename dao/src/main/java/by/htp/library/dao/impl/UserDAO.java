@@ -17,16 +17,17 @@ import java.util.ArrayList;
 
 public class UserDAO implements IUserDAO {
     private final static UserDAO INSTANCE = new UserDAO();
+    private final static String USER = "user";
+    private final static String UNBLOCK = "unblock";
     private final static String CHECK_LOGIN = "SELECT * FROM Users";
     private final static String CHECK_MATCH_LOGIN = "SELECT login FROM users WHERE login = ?";
     private final static String CHECK_REGISTER = "insert into users(login, password, role, blacklist, name, email) values(?,?,?,?,?,?)";
-    private final static String FIND_ID_BY_LOGIN = "SELECT idusers FROM users WHERE login = ?";
     private final static String UNBAN_USER = "update users set blacklist = 'unblock' where idusers = ?";
     private final static String BAN_USER = "update users set blacklist = 'block' where idusers = ?";
     private final static String DELETE_USER = "DELETE FROM users WHERE idusers = ?";
     private final static String FIND_ALL_USERS = "SELECT * FROM Users";
-    private ConnectionPool connectionPool = ConnectionPool.getInstance();
 
+    private ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     private UserDAO() {
     }
@@ -107,8 +108,8 @@ public class UserDAO implements IUserDAO {
             preparedStatement = connection.prepareStatement(CHECK_REGISTER);
             preparedStatement.setString(1, login);
             preparedStatement.setString(2, PasswordEncryption.takeMD5Function(password));
-            preparedStatement.setString(3, "user");
-            preparedStatement.setString(4, "unblock");
+            preparedStatement.setString(3, USER);
+            preparedStatement.setString(4, UNBLOCK);
             preparedStatement.setString(5, name);
             preparedStatement.setString(6, email);
             preparedStatement.executeUpdate();

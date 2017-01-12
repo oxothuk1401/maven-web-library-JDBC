@@ -52,8 +52,6 @@ public class Controller extends HttpServlet {
             logger.error(e);
             pageName = PageName.ERROR_PAGE;
         }
-        if (pageName != PageName.AJAX) {
             request.getRequestDispatcher(pageName).forward(request, response);
-        }
     }
 }

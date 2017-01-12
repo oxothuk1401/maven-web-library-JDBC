@@ -6,7 +6,6 @@ public class Book {
     private String author;
     private String title;
     private String date;
-
     public Book(){
 
     }
@@ -21,7 +20,6 @@ public class Book {
     public long getBookId() {
         return bookId;
     }
-
     public void setBookId(long bookId) {
         this.bookId = bookId;
     }
@@ -29,7 +27,6 @@ public class Book {
     public String getAccess() {
         return access;
     }
-
     public void setAccess(String access) {
         this.access = access;
     }
@@ -37,7 +34,6 @@ public class Book {
     public String getAuthor() {
         return author;
     }
-
     public void setAuthor(String author) {
         this.author = author;
     }
@@ -45,7 +41,6 @@ public class Book {
     public String getTitle() {
         return title;
     }
-
     public void setTitle(String title) {
         this.title = title;
     }
@@ -53,7 +48,6 @@ public class Book {
     public String getDate() {
         return date;
     }
-
     public void setDate(String date) {
         this.date = date;
     }

@@ -31,37 +31,6 @@
 </head>
 <body class="body2">
 <%@ include file="include/header.jsp" %>
-<div class="row container">
-    <div>
-        <input class="btn btn-info" id="hide" style="display:none" onclick="return false" type="button" value="${hide}"/>
-        <input class="btn btn-info" id="show" onclick="return false" type="button" value="${show}"/>
-
-        <div id="panel" style="display: none;">
-            <form action="Controller" method="post" class="navbar-form">
-                <input type="hidden" name="command" value="sign-up-user"/>
-                <input type="hidden" name="pageUnique" value="${sessionScope.pageUnique }"/>
-                <c:if test="${not empty requestScope.invalidRegistrData}">
-                    <span class="error">${requestScope.invalidRegistrData }</span>
-                    <br>
-                </c:if>
-                <input class="form-control" type="text" name="authorEdit"
-                       placeholder="${author} "
-                       value=""/> ${authorInfo}
-                <br>
-                <input class="form-control" type="text" name="titleEdit" placeholder="${title}"
-                       value=""/> ${titleInfo}
-                <br>
-                <input class="form-control" type="number" name="dateEdit" placeholder="${date}"
-                       value=""/> ${dateInfo}
-                <br>
-                <input class="btn btn-primary"
-                       type="submit" value="${apply }"/>
-            </form>
-        </div>
-
-    </div>
-    <br>
-</div>
 <div class="content">
     <table align="center"></table>
     <ctg:show-all-books bookList="${sessionScope.bookList }"/>

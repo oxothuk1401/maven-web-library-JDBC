@@ -20,6 +20,7 @@ import java.util.List;
  */
 public class BookDAO implements IBookDAO {
     private final static BookDAO INSTANCE = new BookDAO();
+    private final static String AVALIBLE = "available";
     private final static String FIND_ALL_BOOKS = "SELECT * FROM books";
     private final static String CHECK_SEARCH = "SELECT * FROM books ORDER BY ";
     private final static String ADD_BOOK = "insert into books(access, author, title, date) values(?,?,?,?)";
@@ -42,7 +43,7 @@ public class BookDAO implements IBookDAO {
         try {
             connection = connectionPool.takeConnection();
             preparedStatement = connection.prepareStatement(ADD_BOOK);
-            preparedStatement.setString(1, "available");
+            preparedStatement.setString(1, AVALIBLE);
             preparedStatement.setString(2, addAuthor);
             preparedStatement.setString(3, addTitle);
             preparedStatement.setString(4, addDate);
@@ -71,7 +72,7 @@ public class BookDAO implements IBookDAO {
             preparedStatement = connection.prepareStatement(CHECK_SEARCH + sorted);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                if(resultSet.getString(2).equals("available")) {
+                if(resultSet.getString(2).equals(AVALIBLE)) {
                     str = resultSet.getString(3) + " " +
                             resultSet.getString(4) + " " +
                             resultSet.getString(5);

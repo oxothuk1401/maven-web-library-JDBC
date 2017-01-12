@@ -4,8 +4,9 @@ public class AttributeName {
 	public final static String COMMAND = "command";
 	public final static String PASSWORD = "password";
 	public final static String INVALID_DATA = "invalidData";
-	public final static String BLOCK = "block";
-	public final static String UNBLOCK = "unblock";
+	public final static String BAN = "ban";
+	public final static String UNBAN = "unban";
+	public final static String DELETE = "delete";
 	public final static String BLACKLIST = "blacklist";
 	public final static String INVALID_REGISTR_DATA = "invalidRegistrData";
 	public final static String WRONG_DATA = "wrongData";
@@ -32,7 +33,8 @@ public class AttributeName {
 
 	public final static String SEARCHING = "searching";
 	public final static String SORTED = "sorted";
-
+	public final static String OPEN = "open";
+	public final static String CLOSE = "close";
 //	Add book
 	public final static String ADD_AUTHOR = "authorAdd";
 	public final static String ADD_TITLE = "titleAdd";
