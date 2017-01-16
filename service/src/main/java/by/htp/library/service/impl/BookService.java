@@ -14,6 +14,8 @@ import java.util.List;
  */
 public class BookService implements IBookService {
     private final static BookService INSTANCE = new BookService();
+    private final static String AVALIBALE = "available";
+    private final static String NOT_AVALIBALE = "notAvailable";
 
     private BookService() {
     }
@@ -65,7 +67,7 @@ public class BookService implements IBookService {
         try {
             BookDAO bookDAO = BookDAO.getInstance();
             bookDAO.openAccess(bookId);
-            bookList.stream().filter(book -> book.getBookId() == bookId).forEach(book -> book.setAccess("available"));
+            bookList.stream().filter(book -> book.getBookId() == bookId).forEach(book -> book.setAccess(AVALIBALE));
         } catch (DAOException e) {
             throw new ServiceException(e);
         }

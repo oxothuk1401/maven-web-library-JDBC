@@ -1,5 +1,7 @@
 package by.htp.library.validation;
 
+import by.htp.library.util.CreateErrorMessage;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,6 +14,11 @@ public class Validation {
 	private final static String AUTHOR_ADD_EX = "[\\s,.\\wа-яА-Я]{2,50}";
 	private final static String TITLE_ADD_EX = "[\\s,.\\wа-яА-Я]{4,50}";
 	private final static String DATE_ADD_EX = "\\d{4}";
+	private final static String INCORRECT_NAME = "locale.error.incorrect.name";
+	private final static String INCORRECT_LOGIN = "locale.error.incorrect.login";
+	private final static String INCORRECT_PASSWORD = "locale.error.incorrect.password";
+	private final static String PASSWORDS_DONT_MATCH = "locale.error.pass.dont.match";
+	private final static String INCORRECT_IMAIL = "locale.error.incorrect.email";
 
 	private Validation() {
 
@@ -20,6 +27,39 @@ public class Validation {
 	public static Validation getInstance() {
 		return INSTANCE;
 	}
+
+	public boolean validateData(String login, String password) {
+		Validation validation = Validation.getInstance();
+		return validation.validateLogin(login) && validation.validatePassword(password);
+	}
+
+	public boolean validateData(String addAuthor, String addTitle, String addDate) {
+		Validation validation = Validation.getInstance();
+		return validation.validateAuthor(addAuthor) && validation.validateTitle(addTitle) && validation.validateDate(addDate);
+	}
+
+	public String validateData(String registrName, String registrLogin, String registrPass, String repeatedPass,
+								String registrEmail, String userLocale) {
+		Validation validation = Validation.getInstance();
+		if (!validation.validateName(registrName)) {
+			return CreateErrorMessage.createErrorMessage(INCORRECT_NAME, userLocale);
+		}
+		if (!validation.validateLogin(registrLogin)) {
+			return CreateErrorMessage.createErrorMessage(INCORRECT_LOGIN, userLocale);
+		}
+		if (!validation.validatePassword(registrPass)) {
+			return CreateErrorMessage.createErrorMessage(INCORRECT_PASSWORD, userLocale);
+		}
+		if (!validation.validatePassEqals(registrPass, repeatedPass)) {
+			return CreateErrorMessage.createErrorMessage(PASSWORDS_DONT_MATCH, userLocale);
+		}
+		if (!validation.validateEmail(registrEmail)) {
+			return CreateErrorMessage.createErrorMessage(INCORRECT_IMAIL, userLocale);
+		} else {
+			return null;
+		}
+	}
+
 	public boolean validateName(String name) {
 		Pattern pattern = Pattern.compile(NAME_REG_EX);
 		Matcher matcher = pattern.matcher(name);

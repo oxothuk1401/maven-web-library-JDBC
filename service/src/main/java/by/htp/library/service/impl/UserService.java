@@ -11,6 +11,8 @@ import java.util.ArrayList;
 
 public class UserService implements IUserService {
     private final static UserService INSTANCE = new UserService();
+    private final static String BLOCK = "block";
+    private final static String UNBLOCK = "unblock";
 
     private UserService() {
     }
@@ -68,7 +70,7 @@ public class UserService implements IUserService {
         try {
             UserDAO userDAO = UserDAO.getInstance();
             userDAO.banUser(userId);
-            userList.stream().filter(user -> user.getUserId() == userId).forEach(user -> user.setBlacklist("block"));
+            userList.stream().filter(user -> user.getUserId() == userId).forEach(user -> user.setBlacklist(BLOCK));
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
@@ -79,7 +81,7 @@ public class UserService implements IUserService {
         try {
             UserDAO userDAO = UserDAO.getInstance();
             userDAO.unBanUser(userId);
-            userList.stream().filter(user -> user.getUserId() == userId).forEach(user -> user.setBlacklist("unblock"));
+            userList.stream().filter(user -> user.getUserId() == userId).forEach(user -> user.setBlacklist(UNBLOCK));
         } catch (DAOException e) {
             throw new ServiceException(e);
         }

@@ -24,7 +24,7 @@ public class AuthorizationCommand implements ICommand {
         String password = request.getParameter(AttributeName.PASSWORD);
         String page;;
         HttpSession session = request.getSession();
-        if (!validateData(login, password)) {
+        if (!Validation.getInstance().validateData(login, password)) {
             request.setAttribute(AttributeName.INVALID_DATA, true);
             page = PageName.AUTHORIZATION;
         }
@@ -45,10 +45,5 @@ public class AuthorizationCommand implements ICommand {
             throw new CommandException(e);
         }
         return page;
-    }
-
-    private boolean validateData(String login, String password) {
-        Validation validation = Validation.getInstance();
-        return validation.validateLogin(login) && validation.validatePassword(password);
     }
 }

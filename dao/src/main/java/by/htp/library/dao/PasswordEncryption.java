@@ -12,18 +12,18 @@ public class PasswordEncryption {
 	private final static String MD5 = "MD5";
 
 	public static String takeMD5Function(String input) {
+		String hashtext = null;
 		try {
 			MessageDigest md = MessageDigest.getInstance(MD5);
 			byte[] messageDigest = md.digest(input.getBytes());
 			BigInteger number = new BigInteger(1, messageDigest);
-			String hashtext = number.toString(16);
+			hashtext = number.toString(16);
 			while (hashtext.length() < 32) {
 				hashtext = "0" + hashtext;
 			}
-			return hashtext;
 		} catch (NoSuchAlgorithmException e) {
 			logger.error(e);
-			throw new RuntimeException("Error take MD5 function");
 		}
+		return hashtext;
 	}
 }

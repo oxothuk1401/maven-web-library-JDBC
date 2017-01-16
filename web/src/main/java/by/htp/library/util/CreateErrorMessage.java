@@ -1,6 +1,7 @@
 package by.htp.library.util;
 
 import by.htp.library.dao.pool.ConnectionPool;
+import com.sun.org.apache.xpath.internal.SourceTree;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -20,8 +21,8 @@ public class CreateErrorMessage {
             ResourceBundle bundle = ResourceBundle.getBundle(LOCALE_PROPERTIES, locale);
             errorMessage = bundle.getString(errorType);
         }catch (MissingResourceException e){
-            logger.error(e);
-            throw new RuntimeException("No access to the localization file");
+            logger.fatal(e);
+            throw new RuntimeException("No access to the localization file", e);
         }
         return errorMessage;
     }

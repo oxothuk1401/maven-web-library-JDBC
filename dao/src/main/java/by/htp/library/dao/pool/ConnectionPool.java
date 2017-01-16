@@ -36,15 +36,14 @@ public final class ConnectionPool {
 			this.url = dbResourceManager.getValue(DBParameter.DB_URl);
 			this.user = dbResourceManager.getValue(DBParameter.DB_USER);
 			this.password = dbResourceManager.getValue(DBParameter.DB_PASSWORD);
-
 			try {
 				this.poolsize = Integer.parseInt(dbResourceManager.getValue(DBParameter.DB_POOLSIZE));
 			} catch (NumberFormatException e) {
 				poolsize = 5;
 			}
 		}catch (MissingResourceException e){
-			logger.error(e);
-			throw new RuntimeException("No access to the database, check the connection settings");
+			logger.fatal(e);
+			throw new RuntimeException("No access to the database, check the connection settings", e);
 		}
 	}
 
@@ -76,7 +75,6 @@ public final class ConnectionPool {
 		try {
 			closeConnectionsQueue(givenAwayConQueue);
 			closeConnectionsQueue(connectionQueue);
-
 		} catch (SQLException e) {
 			logger.error("Error closing the connection" , e);
 		}

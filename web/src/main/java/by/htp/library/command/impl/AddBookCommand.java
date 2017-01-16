@@ -25,7 +25,7 @@ public class AddBookCommand implements ICommand {
         String addTitle = request.getParameter(AttributeName.ADD_TITLE);
         String addDate = request.getParameter(AttributeName.ADD_DATE);
         String errorMessage = CreateErrorMessage.createErrorMessage(CORRECT_DATA, userLocale);
-        if (!validateData(addAuthor, addTitle, addDate)) {
+        if (!Validation.getInstance().validateData(addAuthor, addTitle, addDate)) {
             request.setAttribute(AttributeName.WRONG_DATA, errorMessage);
             return PageName.USER_PAGE;
         }
@@ -38,11 +38,5 @@ public class AddBookCommand implements ICommand {
         session.setAttribute(AttributeName.LAST_PAGE, PageName.USER_PAGE);
         return PageName.USER_PAGE;
     }
-
-    private boolean validateData(String addAuthor, String addTitle, String addDate) {
-        Validation validation = Validation.getInstance();
-        return validation.validateAuthor(addAuthor) && validation.validateTitle(addTitle) && validation.validateDate(addDate);
-    }
-
 
 }

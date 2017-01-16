@@ -8,6 +8,8 @@ import by.htp.library.dao.exception.ConnectionPoolException;
 import by.htp.library.dao.exception.DAOException;
 import by.htp.library.entity.User;
 import by.htp.library.entity.UserRole;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,6 +21,7 @@ public class UserDAO implements IUserDAO {
     private final static UserDAO INSTANCE = new UserDAO();
     private final static String USER = "user";
     private final static String UNBLOCK = "unblock";
+    private static Logger logger = LogManager.getLogger(UserDAO.class);
     private final static String CHECK_LOGIN = "SELECT * FROM Users";
     private final static String CHECK_MATCH_LOGIN = "SELECT login FROM users WHERE login = ?";
     private final static String CHECK_REGISTER = "insert into users(login, password, role, blacklist, name, email) values(?,?,?,?,?,?)";
@@ -39,7 +42,7 @@ public class UserDAO implements IUserDAO {
     @Override
     public User authorizeUser(String login, String password) throws DAOException {
         Connection connection = null;
-        PreparedStatement preparedStatement;
+        PreparedStatement preparedStatement = null;
         ResultSet resultSet;
         User user = null;
         try {
@@ -59,12 +62,21 @@ public class UserDAO implements IUserDAO {
                 }
             }
         } catch (SQLException | ConnectionPoolException e) {
-            throw new DAOException("Error accessing database");
+            throw new DAOException("Error accessing database", e);
         } finally {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                throw new DAOException("Error close connection");
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    logger.error("Error close preparedStatement");
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    logger.error("Error close connection");
+                }
             }
         }
         return user;
@@ -73,7 +85,7 @@ public class UserDAO implements IUserDAO {
     @Override
     public boolean checkMatchExistLogin(String login) throws DAOException {
         Connection connection = null;
-        PreparedStatement preparedStatement;
+        PreparedStatement preparedStatement = null;
         ResultSet resultSet;
         try {
             connection = connectionPool.takeConnection();
@@ -88,12 +100,21 @@ public class UserDAO implements IUserDAO {
                 }
             }
         } catch (SQLException | ConnectionPoolException e) {
-            throw new DAOException("Error accessing database");
+            throw new DAOException("Error accessing database", e);
         } finally {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                throw new DAOException("Error close connection");
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    logger.error("Error close preparedStatement");
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    logger.error("Error close connection");
+                }
             }
         }
         return false;
@@ -102,9 +123,10 @@ public class UserDAO implements IUserDAO {
     @Override
     public boolean checkRegister(String name, String login, String password, String email) throws DAOException {
         Connection connection = null;
-        PreparedStatement preparedStatement;
+        PreparedStatement preparedStatement = null;
         try {
             connection = connectionPool.takeConnection();
+            connection.setAutoCommit(false);
             preparedStatement = connection.prepareStatement(CHECK_REGISTER);
             preparedStatement.setString(1, login);
             preparedStatement.setString(2, PasswordEncryption.takeMD5Function(password));
@@ -113,13 +135,28 @@ public class UserDAO implements IUserDAO {
             preparedStatement.setString(5, name);
             preparedStatement.setString(6, email);
             preparedStatement.executeUpdate();
-        } catch (SQLException | ConnectionPoolException e) {
-            throw new DAOException("Error accessing database");
-        } finally {
             try {
-                connection.close();
+                connection.rollback();
+                connection.setAutoCommit(true);
             } catch (SQLException e) {
-                throw new DAOException("Error close connection");
+                throw new DAOException("Add book fault", e);
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DAOException("Error accessing database", e);
+        } finally {
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    logger.error("Error close preparedStatement");
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    logger.error("Error close connection");
+                }
             }
         }
         return true;
@@ -128,7 +165,7 @@ public class UserDAO implements IUserDAO {
     @Override
     public ArrayList<User> findAllUsers() throws DAOException {
         Connection connection = null;
-        PreparedStatement preparedStatement;
+        PreparedStatement preparedStatement = null;
         ResultSet resultSet;
         ArrayList<User> userList = new ArrayList<>();
         try {
@@ -149,10 +186,19 @@ public class UserDAO implements IUserDAO {
         } catch (SQLException | ConnectionPoolException e) {
             throw new DAOException("Error accessing database", e);
         } finally {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                throw new DAOException("Error close connection");
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    logger.error("Error close preparedStatement");
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    logger.error("Error close connection");
+                }
             }
         }
         return userList;
@@ -161,7 +207,7 @@ public class UserDAO implements IUserDAO {
     @Override
     public void banUser(int userId) throws DAOException {
         Connection connection = null;
-        PreparedStatement preparedStatement;
+        PreparedStatement preparedStatement = null;
         try {
             connection = connectionPool.takeConnection();
             preparedStatement = connection.prepareStatement(BAN_USER);
@@ -170,10 +216,19 @@ public class UserDAO implements IUserDAO {
         } catch (SQLException | ConnectionPoolException e) {
             throw new DAOException("Error accessing database", e);
         } finally {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                throw new DAOException("Error close connection");
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    logger.error("Error close preparedStatement");
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    logger.error("Error close connection");
+                }
             }
         }
     }
@@ -181,7 +236,7 @@ public class UserDAO implements IUserDAO {
     @Override
     public void unBanUser(int userId) throws DAOException {
         Connection connection = null;
-        PreparedStatement preparedStatement;
+        PreparedStatement preparedStatement = null;
         try {
             connection = connectionPool.takeConnection();
             preparedStatement = connection.prepareStatement(UNBAN_USER);
@@ -190,10 +245,19 @@ public class UserDAO implements IUserDAO {
         } catch (SQLException | ConnectionPoolException e) {
             throw new DAOException("Error accessing database", e);
         } finally {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                throw new DAOException("Error close connection");
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    logger.error("Error close preparedStatement");
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    logger.error("Error close connection");
+                }
             }
         }
     }
@@ -201,7 +265,7 @@ public class UserDAO implements IUserDAO {
     @Override
     public void delete(int userId) throws DAOException {
         Connection connection = null;
-        PreparedStatement preparedStatement;
+        PreparedStatement preparedStatement = null;
         try {
             connection = connectionPool.takeConnection();
             preparedStatement = connection.prepareStatement(DELETE_USER);
@@ -210,10 +274,19 @@ public class UserDAO implements IUserDAO {
         } catch (SQLException | ConnectionPoolException e) {
             throw new DAOException("Error accessing database", e);
         } finally {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                throw new DAOException("Error close connection");
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    logger.error("Error close preparedStatement");
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    logger.error("Error close connection");
+                }
             }
         }
     }

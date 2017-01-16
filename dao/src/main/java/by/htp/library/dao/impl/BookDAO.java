@@ -6,6 +6,8 @@ import by.htp.library.dao.pool.ConnectionPool;
 import by.htp.library.dao.exception.ConnectionPoolException;
 import by.htp.library.dao.exception.DAOException;
 import by.htp.library.entity.Book;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,6 +23,7 @@ import java.util.List;
 public class BookDAO implements IBookDAO {
     private final static BookDAO INSTANCE = new BookDAO();
     private final static String AVALIBLE = "available";
+    private static Logger logger = LogManager.getLogger(BookDAO.class);
     private final static String FIND_ALL_BOOKS = "SELECT * FROM books";
     private final static String CHECK_SEARCH = "SELECT * FROM books ORDER BY ";
     private final static String ADD_BOOK = "insert into books(access, author, title, date) values(?,?,?,?)";
@@ -39,22 +42,38 @@ public class BookDAO implements IBookDAO {
     @Override
     public boolean addBook(String addAuthor, String addTitle, String addDate) throws DAOException {
         Connection connection = null;
-        PreparedStatement preparedStatement;
+        PreparedStatement preparedStatement = null;
         try {
             connection = connectionPool.takeConnection();
+            connection.setAutoCommit(false);
             preparedStatement = connection.prepareStatement(ADD_BOOK);
             preparedStatement.setString(1, AVALIBLE);
             preparedStatement.setString(2, addAuthor);
             preparedStatement.setString(3, addTitle);
             preparedStatement.setString(4, addDate);
             preparedStatement.executeUpdate();
-        } catch (SQLException | ConnectionPoolException e) {
-            throw new DAOException("Add book fault");
-        } finally {
             try {
-                connection.close();
+                connection.rollback();
+                connection.setAutoCommit(true);
             } catch (SQLException e) {
-                throw new DAOException("Error close connection");
+                throw new DAOException("Add book fault", e);
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DAOException("Add book fault", e);
+        } finally {
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    logger.error("Error close preparedStatement");
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    logger.error("Error close connection");
+                }
             }
         }
         return true;
@@ -65,14 +84,14 @@ public class BookDAO implements IBookDAO {
         List<Book> listBooks = new ArrayList<>();
         String str;
         Connection connection = null;
-        PreparedStatement preparedStatement;
+        PreparedStatement preparedStatement = null;
         ResultSet resultSet;
         try {
             connection = connectionPool.takeConnection();
             preparedStatement = connection.prepareStatement(CHECK_SEARCH + sorted);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                if(resultSet.getString(2).equals(AVALIBLE)) {
+                if (resultSet.getString(2).equals(AVALIBLE)) {
                     str = resultSet.getString(3) + " " +
                             resultSet.getString(4) + " " +
                             resultSet.getString(5);
@@ -85,12 +104,21 @@ public class BookDAO implements IBookDAO {
                 }
             }
         } catch (SQLException | ConnectionPoolException e) {
-            throw new DAOException("Search fault");
+            throw new DAOException("Search fault", e);
         } finally {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                throw new DAOException("Error close connection");
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    logger.error("Error close preparedStatement");
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    logger.error("Error close connection");
+                }
             }
         }
         return listBooks;
@@ -100,7 +128,7 @@ public class BookDAO implements IBookDAO {
     public ArrayList<Book> findAllBooks() throws DAOException {
         ArrayList<Book> bookList = new ArrayList<>();
         Connection connection = null;
-        PreparedStatement preparedStatement;
+        PreparedStatement preparedStatement = null;
         ResultSet resultSet;
         try {
             connection = connectionPool.takeConnection();
@@ -118,10 +146,19 @@ public class BookDAO implements IBookDAO {
         } catch (SQLException | ConnectionPoolException e) {
             throw new DAOException("Find all books fault", e);
         } finally {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                throw new DAOException("Error close connection");
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    logger.error("Error close preparedStatement");
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    logger.error("Error close connection");
+                }
             }
         }
         return bookList;
@@ -130,7 +167,7 @@ public class BookDAO implements IBookDAO {
     @Override
     public void openAccess(int bookId) throws DAOException {
         Connection connection = null;
-        PreparedStatement preparedStatement;
+        PreparedStatement preparedStatement = null;
         try {
             connection = connectionPool.takeConnection();
             preparedStatement = connection.prepareStatement(OPEN_ACCESS);
@@ -139,10 +176,19 @@ public class BookDAO implements IBookDAO {
         } catch (SQLException | ConnectionPoolException e) {
             throw new DAOException("Open access fault", e);
         } finally {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                throw new DAOException("Error close connection");
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    logger.error("Error close preparedStatement");
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    logger.error("Error close connection");
+                }
             }
         }
     }
@@ -150,7 +196,7 @@ public class BookDAO implements IBookDAO {
     @Override
     public void closeAccess(int bookId) throws DAOException {
         Connection connection = null;
-        PreparedStatement preparedStatement;
+        PreparedStatement preparedStatement = null;
         try {
             connection = connectionPool.takeConnection();
             preparedStatement = connection.prepareStatement(CLOSE_ACCESS);
@@ -159,10 +205,19 @@ public class BookDAO implements IBookDAO {
         } catch (SQLException | ConnectionPoolException e) {
             throw new DAOException("Close access fault", e);
         } finally {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                throw new DAOException("Error close connection");
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    logger.error("Error close preparedStatement");
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    logger.error("Error close connection");
+                }
             }
         }
     }
