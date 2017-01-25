@@ -14,7 +14,15 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
-
+/**
+ * Implements javax.servlet.jsp.tagext.TagSupport. Creates a tag, which takes as
+ * a parameter List with books, and creates corresponding table
+ *
+ * @see javax.servlet.jsp.tagext.TagSupport
+ *
+ * @author Sergei Levkovskii
+ *
+ */
 public class ShowAllBooks extends TagSupport {
     private static final long serialVersionUID = -450464079239593285L;
     private final static String LOCALE_PROPERTIES = "localization.locale";
@@ -34,7 +42,7 @@ public class ShowAllBooks extends TagSupport {
             locale = (userLocale != null) ? new Locale(userLocale) : Locale.getDefault();
             bundle = ResourceBundle.getBundle(LOCALE_PROPERTIES, locale);
         } catch (MissingResourceException e) {
-            logger.error(e);
+            logger.fatal(e);
             throw new RuntimeException("No access to the localization file");
         }
         String noBooks = bundle.getString("locale.messagge.no.books");
@@ -47,7 +55,6 @@ public class ShowAllBooks extends TagSupport {
         String close = bundle.getString("locale.message.close");
         String open = bundle.getString("locale.message.open");
         String action = bundle.getString("locale.message.action");
-        Object pageUnique = (Object) pageContext.getSession().getAttribute(AttributeName.PAGE_UNIQUE);
         try {
             JspWriter out = pageContext.getOut();
             if (bookList == null || bookList.isEmpty()) {
@@ -75,7 +82,6 @@ public class ShowAllBooks extends TagSupport {
                                 "<form action='Controller' method='post'>" +
                                         "<input type='hidden' name='command' value='book-operation' />" +
                                         "<input type='hidden' name='operation' value='open' />" +
-                                        "<input type='hidden' name='pageUnique' value='" + pageUnique + "' />" +
                                         "<input type='hidden' name='bookId' value='" + book.getBookId() + "'> " +
                                         "<input class='btn btn-info' type='submit' value='" + openAccess + "' />" +
                                         "</form>");
@@ -87,7 +93,6 @@ public class ShowAllBooks extends TagSupport {
                                 "<form action='Controller' method='post'>" +
                                         "<input type='hidden' name='command' value='book-operation' />" +
                                         "<input type='hidden' name='operation' value='close' />" +
-                                        "<input type='hidden' name='pageUnique' value='" + pageUnique + "' />" +
                                         "<input type='hidden' name='bookId' value='" + book.getBookId() + "'> " +
                                         "<input class='btn btn-primary' type='submit' value='" + closeAccess + "' />" +
                                         "</form>");

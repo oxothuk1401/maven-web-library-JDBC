@@ -39,7 +39,7 @@ public class BookService implements IBookService {
     @Override
     public List<Book> checkSearch(String searching, String sorted) throws ServiceException {
         BookDAO bookDAO = BookDAO.getInstance();
-        List<Book> bookList = null;
+        List<Book> bookList;
         try {
             bookList = bookDAO.checkSearch(searching,sorted);
         } catch (DAOException e) {
@@ -78,7 +78,7 @@ public class BookService implements IBookService {
         try {
             BookDAO bookDAO = BookDAO.getInstance();
             bookDAO.closeAccess(bookId);
-            bookList.stream().filter(book -> book.getBookId() == bookId).forEach(book -> book.setAccess("notAvailable"));
+            bookList.stream().filter(book -> book.getBookId() == bookId).forEach(book -> book.setAccess(NOT_AVALIBALE));
         } catch (DAOException e) {
             throw new ServiceException(e);
         }

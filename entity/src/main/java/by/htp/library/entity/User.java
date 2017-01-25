@@ -2,7 +2,12 @@ package by.htp.library.entity;
 
 import java.io.Serializable;
 import java.util.List;
-
+/**
+ * User is an object, which contains all information about user.
+ *
+ * @author Sergei Levkovskii
+ *
+ */
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     private int userId;

@@ -1,5 +1,10 @@
 package by.htp.library.entity;
-
+/**
+ * Book is an object, which contains all information about book.
+ *
+ * @author Sergei Levkovskii
+ *
+ */
 public class Book {
     private long bookId;
     private String access;

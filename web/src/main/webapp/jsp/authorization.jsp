@@ -10,6 +10,8 @@
     <link rel="stylesheet" type="text/css" href="style/bootstrap.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="js/valid.js" type="text/javascript"></script>
+
     <fmt:setLocale value="${sessionScope.locale}"/>
     <fmt:setBundle var="loc" basename="localization.locale"/>
     <fmt:message var="loginTitle" bundle="${loc}" key="locale.title.login"/>
@@ -27,11 +29,12 @@
     <fmt:message var="enterPassword" bundle="${loc}" key="locale.pass.field"/>
     <fmt:message var="passInfo" bundle="${loc}" key="locale.message.pass.info"/>
     <fmt:message var="repeatPassword" bundle="${loc}" key="locale.repeatpassword"/>
+    <fmt:message var="dontMatch" bundle="${loc}" key="locale.error.pass.dont.match"/>
     <fmt:message var="enterEmail" bundle="${loc}" key="locale.enteremail"/>
     <fmt:message var="emailInfo" bundle="${loc}" key="locale.message.email.info"/>
     <fmt:message var="send" bundle="${loc}" key="locale.button.send"/>
     <fmt:message var="requiredFieldMessage" bundle="${loc}" key="locale.message.required.field"/>
-    <script src="/js/show_panel.js"></script>
+    <script src="/js/show_panel.js" type="text/javascript"></script>
 
     <title>${loginTitle }</title>
 </head>
@@ -41,7 +44,9 @@
     <div class="container">
         <div class="row">
             <div class="well col-lg-3 col-md-offset-4">
-                <p class="text-center"> ${greeting }</p>
+                <p id="greeting" class="text-center"> ${greeting }</p>
+                <script src="js/effect.js" type="text/javascript"></script>
+
                 <c:if test="${requestScope.invalidData}">
                     <span class="error text-center">${invalidData }</span>
                 </c:if>
@@ -80,26 +85,32 @@
                     <span class="error">${requestScope.invalidRegistrData }</span>
                     <br>
                 </c:if>
-                <input class="form-control" type="text" name="registrName" required
+                <input class="form-control" type="text"  onkeyup="return validName()" id="registrName" name="registrName" required
                        pattern="[a-zA-Zа-яёА-ЯЁ\s]{2,20}"
                        placeholder="${enterName }${requiredFieldChar }" value=""/> ${nameInfo }
                 <br>
-                <input class="form-control" type="text" name="registrLogin" required pattern="[a-zA-Z0-9]{4,20}"
-                       placeholder="${enterLogin }${requiredFieldChar }" value=""/> ${loginInfo }
+                <input class="form-control" type="text" onkeyup="return validLogin()" id="registrLogin" name="registrLogin"
+                       required pattern="[a-zA-Z0-9]{4,20}"
+                       placeholder="${enterLogin }${requiredFieldChar }" value="" disabled/> ${loginInfo }
                 <br>
-                <input class="form-control" type="password" name="registrPass" required pattern="[a-zA-Z0-9]{4,20}"
+
+                <input class="form-control" type="password"  onkeyup="return validPassword()" id="registrPass" name="registrPass"
+                       required pattern="[a-zA-Z0-9]{4,20}" disabled
                        placeholder="${enterPassword }${requiredFieldChar }" value=""/> ${passInfo }
                 <br>
-                <input class="form-control" type="password" name="registrRepeatPass" required
-                       pattern="[a-zA-Z0-9]{4,20}"
+
+                <input class="form-control" type="password" onkeyup="return validRepeatPassword()" id="registrRepeatPass" name="registrRepeatPass"
+                       required pattern="[a-zA-Z0-9]{4,20}" disabled
                        placeholder="${repeatPassword }${requiredFieldChar }" value=""/>
-                <br>
-                <input class="form-control" type="text" name="registrEmail" required pattern=".+@.+"
+
+                <span id="message2" style="display:none; color:red">${dontMatch }</span><br>
+                <input class="form-control" type="text" id="registrEmail" onkeyup="return validEmail()" name="registrEmail"
+                       required pattern=".+@.+" disabled
                        placeholder="${enterEmail }${requiredFieldChar }" value=""/> ${emailInfo }
                 <br>
                 ${requiredFieldMessage }
                 <br>
-                <button class="btn btn-info" type="submit" value="">
+                <button class="btn btn-info" type="submit"  name="submit" onclick="validRepeat()" id="submit" value="" disabled >
                     ${send }
                 </button>
             </form>

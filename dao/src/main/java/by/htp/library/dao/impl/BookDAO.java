@@ -45,17 +45,17 @@ public class BookDAO implements IBookDAO {
         PreparedStatement preparedStatement = null;
         try {
             connection = connectionPool.takeConnection();
-            connection.setAutoCommit(false);
-            preparedStatement = connection.prepareStatement(ADD_BOOK);
-            preparedStatement.setString(1, AVALIBLE);
-            preparedStatement.setString(2, addAuthor);
-            preparedStatement.setString(3, addTitle);
-            preparedStatement.setString(4, addDate);
-            preparedStatement.executeUpdate();
             try {
-                connection.rollback();
                 connection.setAutoCommit(true);
+                preparedStatement = connection.prepareStatement(ADD_BOOK);
+                preparedStatement.setString(1, AVALIBLE);
+                preparedStatement.setString(2, addAuthor);
+                preparedStatement.setString(3, addTitle);
+                preparedStatement.setString(4, addDate);
+                preparedStatement.executeUpdate();
             } catch (SQLException e) {
+                connection.rollback();
+                connection.setAutoCommit(false);
                 throw new DAOException("Add book fault", e);
             }
         } catch (SQLException | ConnectionPoolException e) {

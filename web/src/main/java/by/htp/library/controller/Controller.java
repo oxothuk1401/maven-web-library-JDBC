@@ -16,29 +16,49 @@ import by.htp.library.command.exception.CommandException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-
+/**
+ * Servlet implementation class Controller
+ *
+ * @author Sergei Levkovskii
+ */
 @WebServlet("/Controller")
 public class Controller extends HttpServlet {
     private static Logger logger = LogManager.getLogger(Controller.class);
     private static final long serialVersionUID = 1L;
 
-
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
     public Controller() {
         super();
     }
 
-
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
+    /**
+     * Uses pattern command, to make some actions on the server and return
+     * correct jsp page. Or return error page, if error has occured.
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     private void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();

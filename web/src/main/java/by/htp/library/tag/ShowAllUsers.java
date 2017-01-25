@@ -13,7 +13,15 @@ import java.util.ResourceBundle;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
-
+/**
+ * Implements javax.servlet.jsp.tagext.TagSupport. Creates a tag, which takes as
+ * a parameter List with users, and creates corresponding table
+ *
+ * @see javax.servlet.jsp.tagext.TagSupport
+ *
+ * @author Sergei Levkovskii
+ *
+ */
 public class ShowAllUsers extends TagSupport {
     private static final long serialVersionUID = -450464079239593285L;
     private final static String LOCALE_PROPERTIES = "localization.locale";
@@ -33,7 +41,7 @@ public class ShowAllUsers extends TagSupport {
             locale = (userLocale != null) ? new Locale(userLocale) : Locale.getDefault();
             bundle = ResourceBundle.getBundle(LOCALE_PROPERTIES, locale);
         } catch (MissingResourceException e) {
-            logger.error(e);
+            logger.fatal(e);
             throw new RuntimeException("No access to the localization file");
         }
         String noUsers = bundle.getString("locale.messagge.no.users");
@@ -47,7 +55,6 @@ public class ShowAllUsers extends TagSupport {
         String unban = bundle.getString("locale.button.unban");
         String status = bundle.getString("locale.message.status");
         String action = bundle.getString("locale.message.action");
-        Object pageUnique = (Object) pageContext.getSession().getAttribute(AttributeName.PAGE_UNIQUE);
         try {
             JspWriter out = pageContext.getOut();
             if (userList == null || userList.isEmpty()) {
@@ -75,7 +82,6 @@ public class ShowAllUsers extends TagSupport {
                                 "<form action='Controller' method='post'>" +
                                         "<input type='hidden' name='command' value='user-operation' />" +
                                         "<input type='hidden' name='operation' value='unban' />" +
-                                        "<input type='hidden' name='pageUnique' value='" + pageUnique + "' />" +
                                         "<input type='hidden' name='userId' value='" + user.getUserId() + "'> " +
                                         "<input class='btn btn-info' type='submit' value='" + unban + "' />" +
                                         "</form>");
@@ -87,7 +93,6 @@ public class ShowAllUsers extends TagSupport {
                                 "<form action='Controller' method='post'>" +
                                         "<input type='hidden' name='command' value='user-operation' />" +
                                         "<input type='hidden' name='operation' value='ban' />" +
-                                        "<input type='hidden' name='pageUnique' value='" + pageUnique + "' />" +
                                         "<input type='hidden' name='userId' value='" + user.getUserId() + "'> " +
                                         "<input class='btn btn-primary' type='submit' value='" + ban + "' />" +
                                         "</form>");
@@ -97,7 +102,6 @@ public class ShowAllUsers extends TagSupport {
                             "<form action='Controller' method='post'>" +
                                     "<input type='hidden' name='command' value='user-operation' />" +
                                     "<input type='hidden' name='operation' value='delete' />" +
-                                    "<input type='hidden' name='pageUnique' value='" + pageUnique + "' />" +
                                     "<input type='hidden' name='userId' value='" + user.getUserId() + "'> " +
                                     "<input class='btn btn-warning' type='submit' value='" + delete + "' />" +
                                     "</form>");

@@ -25,7 +25,6 @@ public class UserOperationCommand implements ICommand {
 				case AttributeName.UNBAN: UserService.getInstance().unBanUser(userId, userList);  break;
 				case AttributeName.BAN: UserService.getInstance().banUser(userId, userList);  break;
 				case AttributeName.DELETE: UserService.getInstance().delete(userId, userList); break;
-
 			}
 		} catch (ServiceException e) {
 			throw new CommandException(e);

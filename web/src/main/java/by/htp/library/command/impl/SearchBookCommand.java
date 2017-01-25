@@ -25,7 +25,7 @@ public class SearchBookCommand implements ICommand {
             bookList = BookService.getInstance().checkSearch(searching,sorted);
             session.setAttribute(AttributeName.BOOKS_LIST, bookList);
         } catch (ServiceException e) {
-          throw new CommandException(e.getMessage());
+          throw new CommandException(e);
         }
         session.setAttribute(AttributeName.LAST_PAGE, PageName.SHOW_SEARCH_BOOK);
     return PageName.SHOW_SEARCH_BOOK;

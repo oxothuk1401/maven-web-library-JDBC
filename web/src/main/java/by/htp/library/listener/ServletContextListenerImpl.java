@@ -22,8 +22,8 @@ public class ServletContextListenerImpl implements ServletContextListener {
 		try {
 			connectionPool.initPoolData();
 		} catch (ConnectionPoolException e) {
-			logger.error(e);
-			throw new RuntimeException("No connection");
+			logger.fatal(e);
+			throw new RuntimeException("No connection", e);
 		}
 
 	}

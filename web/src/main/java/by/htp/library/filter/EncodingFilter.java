@@ -9,7 +9,7 @@ import java.io.IOException;
  * Filters all requests and checks the encoding. If encoding isn't correct,
  * changes it in the right encoding
  * 
- * @author Uladzimir Luhin
+ * @author Sergei Levkovskii
  *
  */
 @WebFilter(urlPatterns = { "/*" }, initParams = { @WebInitParam(name = "encoding", value = "UTF-8") })

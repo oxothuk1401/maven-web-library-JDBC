@@ -7,7 +7,12 @@ import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
+/**
+ * This filter protect from illegal direct acces to the pages. In case attemtp
+ * to acces jsp page directly, this filter will redirect user to index.jsp
+ *
+ * @author Sergei Levkovskii
+ */
 
 @WebFilter(urlPatterns = { "/jsp/*" }, initParams = { @WebInitParam(name = "INDEX_PATH", value = "/index.jsp") })
 public class PageRedirectFilter implements Filter {

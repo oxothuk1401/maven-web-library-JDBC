@@ -17,7 +17,8 @@ public final class ConnectionPool {
 	private static Logger logger = LogManager.getLogger(ConnectionPool.class);
 	private BlockingQueue<Connection> connectionQueue;
 	private BlockingQueue<Connection> givenAwayConQueue;
-	private final static ConnectionPool INSTANCE = new ConnectionPool();
+	private static ConnectionPool INSTANCE = new ConnectionPool();
+	private final static int POOL_SIZE = 5;
 
 	private String driverName;
 	private String url;
@@ -39,7 +40,7 @@ public final class ConnectionPool {
 			try {
 				this.poolsize = Integer.parseInt(dbResourceManager.getValue(DBParameter.DB_POOLSIZE));
 			} catch (NumberFormatException e) {
-				poolsize = 5;
+				poolsize = POOL_SIZE;
 			}
 		}catch (MissingResourceException e){
 			logger.fatal(e);
@@ -104,12 +105,12 @@ public final class ConnectionPool {
 	private class PooledConnection implements Connection {
 		private Connection connection;
 
-		public PooledConnection(Connection connection) throws SQLException {
+		PooledConnection(Connection connection) throws SQLException {
 			this.connection = connection;
 			this.connection.setAutoCommit(true);
 		}
 
-		public void reallyClose() throws SQLException {
+		void reallyClose() throws SQLException {
 			connection.close();
 		}
 

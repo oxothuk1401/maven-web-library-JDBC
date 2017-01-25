@@ -2,7 +2,7 @@ package by.htp.library.dao.impl;
 
 
 import by.htp.library.dao.IUserDAO;
-import by.htp.library.dao.PasswordEncryption;
+import by.htp.library.dao.util.PasswordEncryption;
 import by.htp.library.dao.pool.ConnectionPool;
 import by.htp.library.dao.exception.ConnectionPoolException;
 import by.htp.library.dao.exception.DAOException;
@@ -126,20 +126,20 @@ public class UserDAO implements IUserDAO {
         PreparedStatement preparedStatement = null;
         try {
             connection = connectionPool.takeConnection();
-            connection.setAutoCommit(false);
-            preparedStatement = connection.prepareStatement(CHECK_REGISTER);
-            preparedStatement.setString(1, login);
-            preparedStatement.setString(2, PasswordEncryption.takeMD5Function(password));
-            preparedStatement.setString(3, USER);
-            preparedStatement.setString(4, UNBLOCK);
-            preparedStatement.setString(5, name);
-            preparedStatement.setString(6, email);
-            preparedStatement.executeUpdate();
+            connection.setAutoCommit(true);
             try {
-                connection.rollback();
-                connection.setAutoCommit(true);
+                preparedStatement = connection.prepareStatement(CHECK_REGISTER);
+                preparedStatement.setString(1, login);
+                preparedStatement.setString(2, PasswordEncryption.takeMD5Function(password));
+                preparedStatement.setString(3, USER);
+                preparedStatement.setString(4, UNBLOCK);
+                preparedStatement.setString(5, name);
+                preparedStatement.setString(6, email);
+                preparedStatement.executeUpdate();
             } catch (SQLException e) {
-                throw new DAOException("Add book fault", e);
+                connection.rollback();
+                connection.setAutoCommit(false);
+                throw new DAOException("Add user fault", e);
             }
         } catch (SQLException | ConnectionPoolException e) {
             throw new DAOException("Error accessing database", e);

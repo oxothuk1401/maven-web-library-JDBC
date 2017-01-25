@@ -11,8 +11,6 @@
     <fmt:setLocale value="${sessionScope.locale}"/>
     <fmt:setBundle var="loc" basename="localization.locale"/>
     <fmt:message var="resultSearch" bundle="${loc}" key="locale.title.book.search"/>
-    <fmt:message var="id" bundle="${loc}" key="local.id"/>
-    <fmt:message var="access" bundle="${loc}" key="local.access"/>
     <fmt:message var="author" bundle="${loc}" key="local.author"/>
     <fmt:message var="title" bundle="${loc}" key="local.title"/>
     <fmt:message var="date" bundle="${loc}" key="local.date"/>

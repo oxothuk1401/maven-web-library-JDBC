@@ -6754,4 +6754,10 @@ button.close {
     display: none !important;
   }
 }
+.ok{
+  border: 1px solid green;
+}
+.error{
+  border: 1px solid red;
+}
 /*# sourceMappingURL=bootstrap.css.map */
