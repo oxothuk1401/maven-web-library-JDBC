@@ -1,0 +1,23 @@
+DROP TABLE IF EXISTS `books`;
+CREATE TABLE `books` (
+  `idbooks` int(11) NOT NULL AUTO_INCREMENT,
+  `access` varchar(45) NOT NULL,
+  `author` varchar(45) NOT NULL,
+  `title` varchar(45) NOT NULL,
+  `date` int(10) NOT NULL,
+  PRIMARY KEY (`idbooks`,`access`)
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users` (
+  `idusers` int(11) NOT NULL AUTO_INCREMENT,
+  `login` varchar(45) NOT NULL,
+  `password` varchar(45) NOT NULL,
+  `role` varchar(20) NOT NULL,
+  `blacklist` varchar(45) NOT NULL,
+  `name` varchar(20) NOT NULL,
+  `email` varchar(40) DEFAULT NULL,
+  PRIMARY KEY (`idusers`),
+  UNIQUE KEY `login_UNIQUE` (`login`),
+  KEY `users_role_id_role_fk` (`role`)
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
