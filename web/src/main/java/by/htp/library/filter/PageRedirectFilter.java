@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 /**
  * This filter protect from illegal direct acces to the pages. In case attemtp
- * to acces jsp page directly, this filter will redirect user to index.jsp
+ * to access jsp page directly, this filter will redirect user to index.jsp
  *
  * @author Sergei Levkovskii
  */

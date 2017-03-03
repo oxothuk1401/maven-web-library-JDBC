@@ -52,7 +52,7 @@ public class Controller extends HttpServlet {
     }
     /**
      * Uses pattern command, to make some actions on the server and return
-     * correct jsp page. Or return error page, if error has occured.
+     * correct jsp page. Or return error page, if error has occurred.
      *
      * @param request
      * @param response
