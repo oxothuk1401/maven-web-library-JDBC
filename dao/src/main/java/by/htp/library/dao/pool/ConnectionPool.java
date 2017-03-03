@@ -24,7 +24,7 @@ public final class ConnectionPool {
 	private String url;
 	private String user;
 	private String password;
-	private int poolsize;
+	private int poolSize;
 
 	public static ConnectionPool getInstance() {
 		return INSTANCE;
@@ -38,9 +38,9 @@ public final class ConnectionPool {
 			this.user = dbResourceManager.getValue(DBParameter.DB_USER);
 			this.password = dbResourceManager.getValue(DBParameter.DB_PASSWORD);
 			try {
-				this.poolsize = Integer.parseInt(dbResourceManager.getValue(DBParameter.DB_POOLSIZE));
+				this.poolSize = Integer.parseInt(dbResourceManager.getValue(DBParameter.DB_POOLSIZE));
 			} catch (NumberFormatException e) {
-				poolsize = POOL_SIZE;
+				poolSize = POOL_SIZE;
 			}
 		}catch (MissingResourceException e){
 			logger.fatal(e);
@@ -51,12 +51,12 @@ public final class ConnectionPool {
 	public void initPoolData() throws ConnectionPoolException {
 		try {
 			Class.forName(driverName);
-			givenAwayConQueue = new ArrayBlockingQueue<>(poolsize);
-			connectionQueue = new ArrayBlockingQueue<>(poolsize);
-			for (int i = 0; i < poolsize; i++) {
+			givenAwayConQueue = new ArrayBlockingQueue<>(poolSize);
+			connectionQueue = new ArrayBlockingQueue<>(poolSize);
+			for (int i = 0; i < poolSize; i++) {
 				Connection connection = DriverManager.getConnection(url, user, password);
 				PooledConnection pooledConnection = new PooledConnection(connection);
-					connectionQueue.add(pooledConnection);
+				connectionQueue.add(pooledConnection);
 			}
 		} catch (SQLException e) {
 			logger.error(e);

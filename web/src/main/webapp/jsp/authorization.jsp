@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="style/bootstrap.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="js/valid.js" type="text/javascript"></script>
+
 
     <fmt:setLocale value="${sessionScope.locale}"/>
     <fmt:setBundle var="loc" basename="localization.locale"/>
@@ -34,7 +34,7 @@
     <fmt:message var="emailInfo" bundle="${loc}" key="locale.message.email.info"/>
     <fmt:message var="send" bundle="${loc}" key="locale.button.send"/>
     <fmt:message var="requiredFieldMessage" bundle="${loc}" key="locale.message.required.field"/>
-    <script src="/js/show_panel.js" type="text/javascript"></script>
+
 
     <title>${loginTitle }</title>
 </head>
@@ -45,7 +45,7 @@
         <div class="row">
             <div class="well col-lg-3 col-md-offset-4">
                 <p id="greeting" class="text-center"> ${greeting }</p>
-                <script src="js/effect.js" type="text/javascript"></script>
+
 
                 <c:if test="${requestScope.invalidData}">
                     <span class="error text-center">${invalidData }</span>
@@ -117,5 +117,8 @@
         </div>
         <%@ include file="include/footer.jsp" %>
     </div>
+    <script src="/js/show_panel.js" type="text/javascript"></script>
+    <%--<script src="js/valid.js" type="text/javascript"></script>--%>
+    <%--<script src="js/effect.js" type="text/javascript"></script>--%>
 </body>
 </html>

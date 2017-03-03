@@ -22,13 +22,13 @@ public class UserDAO implements IUserDAO {
     private final static String USER = "user";
     private final static String UNBLOCK = "unblock";
     private static Logger logger = LogManager.getLogger(UserDAO.class);
-    private final static String CHECK_LOGIN = "SELECT * FROM Users";
-    private final static String CHECK_MATCH_LOGIN = "SELECT login FROM users WHERE login = ?";
-    private final static String CHECK_REGISTER = "insert into users(login, password, role, blacklist, name, email) values(?,?,?,?,?,?)";
-    private final static String UNBAN_USER = "update users set blacklist = 'unblock' where idusers = ?";
-    private final static String BAN_USER = "update users set blacklist = 'block' where idusers = ?";
-    private final static String DELETE_USER = "DELETE FROM users WHERE idusers = ?";
-    private final static String FIND_ALL_USERS = "SELECT * FROM Users";
+    private final static String CHECK_LOGIN = "SELECT * FROM User";
+    private final static String CHECK_MATCH_LOGIN = "SELECT login FROM user WHERE login = ?";
+    private final static String CHECK_REGISTER = "insert into user(login, password, role, blacklist, name, email) values(?,?,?,?,?,?)";
+    private final static String UNBAN_USER = "update user set blacklist = 'unblock' where iduser = ?";
+    private final static String BAN_USER = "update user set blacklist = 'block' where iduser = ?";
+    private final static String DELETE_USER = "DELETE FROM user WHERE iduser = ?";
+    private final static String FIND_ALL_USERS = "SELECT * FROM User";
 
     private ConnectionPool connectionPool = ConnectionPool.getInstance();
 
@@ -126,8 +126,6 @@ public class UserDAO implements IUserDAO {
         PreparedStatement preparedStatement = null;
         try {
             connection = connectionPool.takeConnection();
-            connection.setAutoCommit(true);
-            try {
                 preparedStatement = connection.prepareStatement(CHECK_REGISTER);
                 preparedStatement.setString(1, login);
                 preparedStatement.setString(2, PasswordEncryption.takeMD5Function(password));
@@ -136,11 +134,6 @@ public class UserDAO implements IUserDAO {
                 preparedStatement.setString(5, name);
                 preparedStatement.setString(6, email);
                 preparedStatement.executeUpdate();
-            } catch (SQLException e) {
-                connection.rollback();
-                connection.setAutoCommit(false);
-                throw new DAOException("Add user fault", e);
-            }
         } catch (SQLException | ConnectionPoolException e) {
             throw new DAOException("Error accessing database", e);
         } finally {

@@ -24,11 +24,11 @@ public class BookDAO implements IBookDAO {
     private final static BookDAO INSTANCE = new BookDAO();
     private final static String AVALIBLE = "available";
     private static Logger logger = LogManager.getLogger(BookDAO.class);
-    private final static String FIND_ALL_BOOKS = "SELECT * FROM books";
-    private final static String CHECK_SEARCH = "SELECT * FROM books ORDER BY ";
-    private final static String ADD_BOOK = "insert into books(access, author, title, date) values(?,?,?,?)";
-    private final static String OPEN_ACCESS = "update books set access = 'available' where idbooks = ?";
-    private final static String CLOSE_ACCESS = "update books set access = 'notAvailable' where idbooks = ?";
+    private final static String FIND_ALL_BOOKS = "SELECT * FROM book";
+    private final static String CHECK_SEARCH = "SELECT * FROM book ORDER BY ";
+    private final static String ADD_BOOK = "insert into book(access, author, title, date) values(?,?,?,?)";
+    private final static String OPEN_ACCESS = "update book set access = 'available' where idbook = ?";
+    private final static String CLOSE_ACCESS = "update book set access = 'notAvailable' where idbook = ?";
 
     private ConnectionPool connectionPool = ConnectionPool.getInstance();
 
@@ -45,19 +45,12 @@ public class BookDAO implements IBookDAO {
         PreparedStatement preparedStatement = null;
         try {
             connection = connectionPool.takeConnection();
-            try {
-                connection.setAutoCommit(true);
                 preparedStatement = connection.prepareStatement(ADD_BOOK);
                 preparedStatement.setString(1, AVALIBLE);
                 preparedStatement.setString(2, addAuthor);
                 preparedStatement.setString(3, addTitle);
                 preparedStatement.setString(4, addDate);
                 preparedStatement.executeUpdate();
-            } catch (SQLException e) {
-                connection.rollback();
-                connection.setAutoCommit(false);
-                throw new DAOException("Add book fault", e);
-            }
         } catch (SQLException | ConnectionPoolException e) {
             throw new DAOException("Add book fault", e);
         } finally {
